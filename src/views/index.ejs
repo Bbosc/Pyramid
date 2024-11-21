@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyramid interface</title>
+</head>
+<body>
+    <h1>Tasks</h1>
+    
+    <ul>
+        <% tasks.forEach(task => { %>
+            <li><%= task.name %></li>
+            <form action="/tasks/delete/<%=task.name%>" method="POST">
+                <button name="name" value=<%= task.name%>>Remove</button>
+            </form>
+
+            <form action="/tasks/edit/<%=task.name%>" method="GET">
+                <button name="name" value=<%= task.name%>>Edit</button>
+            </form>
+
+        <% }) %>
+    </ul>
+
+
+    <a href="/tasks/new">Add a new task</a>
+
+</body>
+</html>
+

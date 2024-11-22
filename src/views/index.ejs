@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pyramid interface</title>
     <link rel="icon" type="image/x-icon" href="/images/pyramid.ico">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/displayTasks.js"></script>
 </head>
 <body>
-    <h1 id="tasks-overview">Tasks</h1>
+    <div id="home-image"></div>
 
-    <script>
-        const tasks = <%- JSON.stringify(tasks)%>;
-        window.onload = displayTaskPerTiers(tasks, 4);
-        window.onload = displayTaskPerTiers(tasks, 3);
-        window.onload = displayTaskPerTiers(tasks, 2);
-        window.onload = displayTaskPerTiers(tasks, 1);
-        window.onload = displayTaskPerTiers(tasks, 0);
-    </script>
+    <div id="tasks-container">
 
-    <form action="/tasks/new" method="GET">
-        <button name="add">Add task</button>
-    </form>
+        <script>
+            const tasks = <%- JSON.stringify(tasks)%>;
+            window.onload = displayTaskPerTiers(tasks, 4);
+            window.onload = displayTaskPerTiers(tasks, 3);
+            window.onload = displayTaskPerTiers(tasks, 2);
+            window.onload = displayTaskPerTiers(tasks, 1);
+            window.onload = displayTaskPerTiers(tasks, 0);
+        </script>
+
+        <!-- <form action="/tasks/new" method="GET">
+            <button name="add">Add task</button>
+        </form> -->
+
+    </div>
 
 </body>
 </html>

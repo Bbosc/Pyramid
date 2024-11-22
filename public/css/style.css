@@ -1,0 +1,78 @@
+:root{
+    --pBlue: #08385178; 
+    --pDarkBlue: #083851bd; 
+    --pGold: #e8c998;
+    --fontColor: #92e8e3;
+    --transarentHiglight: #92e8e47e;
+    --cornerRadius: 15px;
+  }
+  
+
+body, html {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    font-family: "Lucida Console", monospace;
+}
+
+#home-image {
+    position: relative;
+    background-image: url("../images/pyramid_wp.png");
+
+    filter: blur(5px);
+    -webkit-filter: blur(5px);
+
+    height: 100%;
+    width: 100%;
+
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#tasks-container {
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    height: 91%;
+    width: 98%;
+    border-radius: var(--cornerRadius);
+}
+
+.column {
+    float: left;
+    width: 19%;
+    height: 100%;
+    background-color: var(--pBlue);
+    border: 2px solid var(--transarentHiglight);
+    border-radius: var(--cornerRadius);
+    margin-right: 5px;
+}
+
+ul {
+    padding: 0;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: 78% 10% 10%;
+    color: var(--pGold);
+    width: 100%;
+    background-color: var(--pDarkBlue);
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+/* Buttons */
+
+.btn {
+    border: none;
+    color: white;
+    background-color: var(--pDarkBlue);
+    margin-left: 10px
+}
+
+.btn:hover {
+    cursor: pointer;
+    color: var(--pGold);
+}

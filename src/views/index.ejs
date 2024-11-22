@@ -14,12 +14,9 @@
 
     <div id="new-task">
         <h1>Add a new task...</h1>
-        <form action="/tasks/new" method="GET">
-            <button class="btn" name="add">
-                <i class="fa fa-plus-square fa-2x"></i>
-            </button>
-        </form>
-
+        <button class="btn" name="add" onclick="popupNewTaskForm()">
+            <i id="new-icon" class="fa fa-plus-square fa-2x"></i>
+        </button>
     </div>
 
     <div id="tasks-container">
@@ -34,6 +31,32 @@
         </script>
 
 
+    </div>
+
+    <div id="newTaskForm">
+        <form action="/tasks/save" method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            <br><br>
+        
+            <label for="description">Description:</label>
+            <input type="text" id="description" name="description" required>
+            <br><br>
+        
+            <label for="tier">Tier:</label>
+            <input type="number" id="tier" name="tier" required>
+            <br><br>
+
+            <label for="parents">Parents:</label>
+            <input type="text" id="parent" name="parent">
+            <br><br>
+
+            <label for="deadline">Deadline:</label>
+            <input type="date" id="deadline" name="deadline">
+            <br><br>
+        
+            <button type="submit">Create Item</button>
+        </form>
     </div>
 
 </body>

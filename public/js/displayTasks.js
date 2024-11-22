@@ -48,5 +48,22 @@ function displayTaskPerTiers(tasks, tier) {
     div.appendChild(title);
     div.appendChild(ul);
     container.appendChild(div);
-    // container.insertBefore(title, container.nextSibling);
+}
+
+
+function popupNewTaskForm() {
+    var background = document.getElementById("tasks-container");
+    var icon = document.getElementById("new-icon");
+    var form = document.getElementById("newTaskForm");
+    if (form.style.display == "" || form.style.display == "none") {
+        form.style.display = "block";
+        form.style.backdropFilter = `blur(10px)`;
+        background.style.filter = `blur(10px)`;
+        icon.className = "fa fa-minus-square fa-2x";
+    } else {
+        form.style.display = "none";
+        form.style.backdropFilter = `none`;
+        background.style.filter = `blur(0px)`;
+        icon.className = "fa fa-plus-square fa-2x";
+    }
 }

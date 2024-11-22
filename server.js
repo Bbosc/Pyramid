@@ -16,6 +16,7 @@ const uri = `mongodb://${process.env.DB_USER}:${process.env.DB_PASS}@${process.e
 mongoose.connect(uri);
 
 app.use(express.json());
+app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use("/tasks", taskRoutes);
 

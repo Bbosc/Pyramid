@@ -48,4 +48,5 @@ function displayTaskPerTiers(tasks, tier) {
     div.appendChild(title);
     div.appendChild(ul);
     container.appendChild(div);
+    // container.insertBefore(title, container.nextSibling);
 }

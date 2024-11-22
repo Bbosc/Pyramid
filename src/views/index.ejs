@@ -12,6 +12,16 @@
 <body>
     <div id="home-image"></div>
 
+    <div id="new-task">
+        <h1>Add a new task...</h1>
+        <form action="/tasks/new" method="GET">
+            <button class="btn" name="add">
+                <i class="fa fa-plus-square fa-2x"></i>
+            </button>
+        </form>
+
+    </div>
+
     <div id="tasks-container">
 
         <script>
@@ -23,9 +33,6 @@
             window.onload = displayTaskPerTiers(tasks, 0);
         </script>
 
-        <!-- <form action="/tasks/new" method="GET">
-            <button name="add">Add task</button>
-        </form> -->
 
     </div>
 

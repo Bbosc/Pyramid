@@ -98,16 +98,35 @@ ul {
     color: var(--pGold);
 }
 
+.dark-btn {
+    width: 100px;
+    height: 40px;
+    font-size: large;
+    float: right;
+    border: 1px solid;
+    border-radius: var(--cornerRadius);
+    color: black;
+    background-color: transparent;
+    margin-left: 10px
+}
+
+.dark-btn:hover {
+    cursor: pointer;
+    color: var(--pDarkBlue);
+}
+
 /* Forms */
 
 #newTaskForm {
-    display: none;
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: rgba(255, 255, 255, 0.745);
     border-radius: var(--cornerRadius);
     padding: var(--cornerRadius);
     position: absolute;
-    height: 30%;
-    width: 30%;
+    padding: 50px;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -126,3 +145,8 @@ ul {
 from {opacity: 0;}
 to {opacity:1 ;}
 }
+
+#newTaskForm input::placeholder {
+    font-family: "Lucida Console", monospace;
+}
+

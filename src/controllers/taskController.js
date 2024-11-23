@@ -2,14 +2,6 @@ const Task = require('../models/task');
 
 // Create
 
-exports.createTask = async (req, res) => {
-  try {
-    res.render("new");
-  } catch (error) {
-    res.status(500).json({error: error.message});
-  }
-};
-
 exports.saveTask = async (req, res) => {
   const appendix = {
     created: new Date(),
@@ -27,21 +19,6 @@ exports.saveTask = async (req, res) => {
 };
 
 
-exports.saveTaskJson = async (req, res) => {
-  try {
-    const appendix = {
-      created: new Date(),
-      isStarted: false,
-      isCompleted: false
-    }
-    const newBody = Object.assign(req.body, appendix);
-    const task = new Task(newBody);
-    const savedTask = await task.save();
-    res.status(201).json(savedTask);
-  } catch (error) {
-    res.status(500).json({error: error.message});
-  }
-};
 
 // Search
 

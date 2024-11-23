@@ -3,9 +3,7 @@ const router = express.Router();
 const taskController = require("../controllers/taskController");
 
 // create
-router.get('/new', taskController.createTask);
 router.post('/save', taskController.saveTask);
-router.post('/save/json', taskController.saveTaskJson);
 // delete
 router.post('/delete/:name', taskController.deleteTaskByName);
 // update

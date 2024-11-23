@@ -35,29 +35,35 @@
 
     <div id="newTaskForm">
         <form action="/tasks/save" method="POST">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
+            <label for="name" style="display: none;">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Name" required>
             <br><br>
         
-            <label for="description">Description:</label>
-            <input type="text" id="description" name="description" required>
+            <label for="description" style="display: none;">Description:</label>
+            <input type="text" id="description" name="description" placeholder="Description">
             <br><br>
         
-            <label for="tier">Tier:</label>
-            <input type="number" id="tier" name="tier" required>
+            <label for="tier" style="display: none;">Tier:</label>
+            <input type="number" id="tier" name="tier" placeholder="Tier">
             <br><br>
 
-            <label for="parents">Parents:</label>
-            <input type="text" id="parent" name="parent">
+            <label for="parents" style="display: none;">Parents:</label>
+            <input type="text" id="parent" name="parent" placeholder="Parent">
             <br><br>
 
             <label for="deadline">Deadline:</label>
             <input type="date" id="deadline" name="deadline">
             <br><br>
         
-            <button type="submit">Create Item</button>
+            <button class="dark-btn" type="submit">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Submit
+            </button>
         </form>
     </div>
+    <script>
+        document.getElementById("newTaskForm").classList.toggle("invisible-form");
+    </script>
 
 </body>
 </html>

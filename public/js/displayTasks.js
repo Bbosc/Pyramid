@@ -55,15 +55,15 @@ function popupNewTaskForm() {
     var background = document.getElementById("tasks-container");
     var icon = document.getElementById("new-icon");
     var form = document.getElementById("newTaskForm");
-    if (form.style.display == "" || form.style.display == "none") {
-        form.style.display = "block";
+    if (form.style.visibility == "hidden" || form.style.visibility == '') {
+        form.style.visibility = "visible";
         form.style.backdropFilter = `blur(10px)`;
         background.style.filter = `blur(10px)`;
         icon.className = "fa fa-minus-square fa-2x";
     } else {
-        form.style.display = "none";
-        form.style.backdropFilter = `none`;
         background.style.filter = `blur(0px)`;
         icon.className = "fa fa-plus-square fa-2x";
+        form.style.visibility = "hidden";
+        form.style.backdropFilter = `none`;
     }
 }

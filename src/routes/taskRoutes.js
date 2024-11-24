@@ -7,8 +7,7 @@ router.post('/save', taskController.saveTask);
 // delete
 router.post('/delete/:name', taskController.deleteTaskByName);
 // update
-router.get('/edit/:name', taskController.editTaskByName);
-router.post('/update', taskController.updateTask);
+router.post('/edit', taskController.editTask);
 // get
 router.get('/', taskController.getAllTasks);
 router.get('/json', taskController.getAllTasksJson);

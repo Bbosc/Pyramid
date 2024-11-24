@@ -7,6 +7,7 @@
     <link rel="icon" type="image/x-icon" href="/images/pyramid.ico">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="/js/form.js"></script>
     <script type="text/javascript" src="/js/displayTasks.js"></script>
 </head>
 <body>
@@ -14,13 +15,12 @@
 
     <div id="new-task">
         <h1>Add a new task...</h1>
-        <button class="btn" name="add" onclick="popupNewTaskForm()">
+        <button class="btn" name="add" onclick="popNewTaskForm()">
             <i id="new-icon" class="fa fa-plus-square fa-2x"></i>
         </button>
     </div>
 
     <div id="tasks-container">
-
         <script>
             const tasks = <%- JSON.stringify(tasks)%>;
             window.onload = displayTaskPerTiers(tasks, 4);
@@ -29,40 +29,13 @@
             window.onload = displayTaskPerTiers(tasks, 1);
             window.onload = displayTaskPerTiers(tasks, 0);
         </script>
-
-
     </div>
 
-    <div id="newTaskForm">
-        <form action="/tasks/save" method="POST">
-            <label for="name" style="display: none;">Name:</label>
-            <input type="text" id="name" name="name" placeholder="Name" required>
-            <br><br>
-        
-            <label for="description" style="display: none;">Description:</label>
-            <input type="text" id="description" name="description" placeholder="Description">
-            <br><br>
-        
-            <label for="tier" style="display: none;">Tier:</label>
-            <input type="number" id="tier" name="tier" placeholder="Tier">
-            <br><br>
-
-            <label for="parents" style="display: none;">Parents:</label>
-            <input type="text" id="parent" name="parent" placeholder="Parent">
-            <br><br>
-
-            <label for="deadline">Deadline:</label>
-            <input type="date" id="deadline" name="deadline">
-            <br><br>
-        
-            <button class="dark-btn" type="submit">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                Submit
-            </button>
-        </form>
-    </div>
     <script>
-        document.getElementById("newTaskForm").classList.toggle("invisible-form");
+        window.addEventListener("DOMContentLoaded", () => {
+            createForm("newTaskForm", "/tasks/save", "POST");
+            createForm("editTaskForm", "/tasks/edit", "POST");
+        });
     </script>
 
 </body>

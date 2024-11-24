@@ -55,17 +55,7 @@ exports.getTaskByName = async (req, res) => {
 
 // edit
 
-exports.editTaskByName = async (req, res) => {
-  try {
-    const task = await Task.findOne({name: req.params.name})
-    res.render("edit", {task});
-  } catch (error) {
-    console.log("editing failed")
-    res.status(500).json({error: error.message});
-  }
-};
-
-exports.updateTask = async (req, res) => {
+exports.editTask = async (req, res) => {
   Task.findByIdAndUpdate({_id: req.body.id},{
     name: req.body.name,
     description: req.body.description,

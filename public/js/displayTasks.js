@@ -49,11 +49,69 @@ function displayTaskPerTiers(tasks, tier) {
         li.appendChild(editButton);
         li.appendChild(deleteForm);
 
+        li.addEventListener("click", function() {
+          displayTaskInformation(task);
+      })
+
         ul.appendChild(li);
     })
     div.appendChild(title);
     div.appendChild(ul);
     container.appendChild(div);
+}
+
+function displayTaskInformation(task) {
+    var div = document.createElement("div");
+    div.id = "task-flyer";
+    var header = document.createElement("h2");
+    header.innerText = task.name;
+    var descriptionSpan = document.createElement("span");
+    descriptionSpan.innerText = task.description;
+    var deadlineSpan = document.createElement("span");
+
+    const updateTime = () => {
+        const remainingTime = timeRemaining(Date.parse(task.deadline));
+        deadlineSpan.innerText = "Time remaining: " + remainingTime;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+
+    var completionButton = document.createElement("button");
+    completionButton.type = "submit";
+    completionButton.innerText = "Completed ?"
+
+    div.append(header, descriptionSpan, deadlineSpan, completionButton);
+    document.body.appendChild(div);
+
+    var background = document.getElementById("tasks-container");
+    var newTaskSection = document.getElementById("new-task");
+    background.style.filter = `blur(10px)`;
+    background.style.pointerEvents = "none";
+    newTaskSection.style.filter = `blur(10px)`;
+    newTaskSection.style.pointerEvents = "none";
+
+}
+
+function timeRemaining(taskDeadline) {
+    const now = new Date();
+    const differenceInMs = taskDeadline - now;
+    if (differenceInMs <= 0) {
+        return 'Deadline reached';
+    }
+
+    const days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
+
+    let result = '';
+    if (days > 0) result += `${days} days, `;
+    if (hours > 0) result += `${hours} hours, `;
+    if (minutes > 0) result += `${minutes} minutes, `;
+    result += `${seconds} seconds remaining`;
+
+    return result;
 }
 
 
@@ -95,15 +153,25 @@ function popEditTaskForm() {
         form.style.visibility = "hidden";
         form.style.backdropfilter = `none`;
     }
-   
 }
 
 window.addEventListener("keydown", function (event) {
+    var background = document.getElementById("tasks-container");
+    var newTaskSection = document.getElementById("new-task");
     var newForm = document.getElementById("newTaskForm");
-    var editForm = document.getElementById("editTaskForm");
-    if (event.key === "Escape" && newForm.style.visibility === "visible") {
-        popNewTaskForm();
-    } else if (event.key === "Escape" && editForm.style.visibility === "visible") {
-        popEditTaskForm();
+    var editForm = document.getElementById("editTaskForm")
+    var taskFlyer = document.getElementById("task-flyer");
+    if (event.key === "Escape") {
+        if (newForm.style.visibility === "visible") {
+            popNewTaskForm();
+        } else if (editForm.style.visibility === "visible") {
+            popEditTaskForm();
+        } else if (taskFlyer) {
+            taskFlyer.remove();
+            background.style.filter = `blur(0px)`;
+            background.style.pointerEvents = "";
+            newTaskSection.style.filter = `blur(0px)`;
+            newTaskSection.style.pointerEvents = "";
+        }
     }
 })

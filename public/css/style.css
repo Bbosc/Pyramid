@@ -84,6 +84,12 @@ ul {
     margin-bottom: 4px;
 }
 
+.task:hover {
+    cursor: pointer;
+    background-color: var(--transarentHiglight);
+    font-weight: bold;
+}
+
 /* Buttons */
 
 .btn {
@@ -143,6 +149,23 @@ ul {
 
 .taskForm input::placeholder {
     font-family: "Lucida Console", monospace;
+}
+
+
+/* Flyer */
+#task-flyer {
+    background-color: rgba(255, 255, 255, 0.745);
+    border-radius: var(--cornerRadius);
+    padding: var(--cornerRadius);
+    position: absolute;
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
 }
 
 

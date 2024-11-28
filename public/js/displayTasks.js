@@ -22,7 +22,7 @@ function displayTaskPerTiers(tasks, tier) {
         editButton.value = task.name;
         editButton.onclick = function() {
             const form = document.getElementById("editTaskForm");
-            document.getElementById(form.id + "-id").placeholder = task._id.toString();
+            document.getElementById(form.id + "-id").value = task._id.toString();
             document.getElementById(form.id + "-name").value = task.name;
             document.getElementById(form.id + "-description").value = task.description;
             document.getElementById(form.id + "-tier").value = task.tier;

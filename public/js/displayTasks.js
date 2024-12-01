@@ -70,21 +70,25 @@ function displayTaskInformation(task) {
     header.innerText = task.name;
     var descriptionSpan = document.createElement("span");
     descriptionSpan.innerText = task.description;
-    var deadlineSpan = document.createElement("span");
+    var deadline = document.createElement("div");
+    deadline.className = "deadline";
+    var deadlineHeader = document.createElement("h4");
+    deadlineHeader.innerText = "Time remaining: ";
+    var deadlineTime = document.createElement("span");
 
     const updateTime = () => {
         const remainingTime = timeRemaining(Date.parse(task.deadline));
-        deadlineSpan.innerText = "Time remaining: " + remainingTime;
+        deadlineTime.innerHTML = remainingTime;
     }
     updateTime();
     setInterval(updateTime, 1000);
+    deadline.append(deadlineHeader, deadlineTime);
 
     var validationForm = createValidationForm(task);
     if (task.isCompleted) {
-        console.log("should check the box");
         validationForm.querySelector("input").checked = true;
     }
-    div.append(header, descriptionSpan, deadlineSpan, validationForm);
+    div.append(header, descriptionSpan, deadline, validationForm);
     document.body.appendChild(div);
 }
 
@@ -97,12 +101,10 @@ function timeRemaining(taskDeadline) {
     const days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
-    const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
     let result = '';
-    if (days > 0) result += `${days} days, `;
-    if (hours > 0) result += `${hours} hours, `;
-    if (minutes > 0) result += `${minutes} minutes, `;
-    result += `${seconds} seconds remaining`;
+    if (days > 0) result += `${days} days`;
+    if (hours > 0) result += ` ${hours} hours`;
+    if (minutes > 0) result += ` ${minutes} minutes`;
 
     return result;
 }

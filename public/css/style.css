@@ -168,14 +168,29 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 1;
+    width: 60%;
 
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s;
 }
 
+#task-flyer h2 {
+    width: 100%;
+}
+
 #task-flyer span {
     display: block;
     padding: var(--cornerRadius);
+}
+
+#task-flyer .deadline h4 {
+    text-decoration: underline; 
+}
+
+#task-flyer .deadline span {
+    display: table;
+    margin: 0 auto;
+    color: red;
 }
 
 @-webkit-keyframes fadeIn {

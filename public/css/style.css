@@ -59,6 +59,11 @@ h2 {
     border-radius: var(--cornerRadius);
 }
 
+.inactive-bg {
+    filter: blur(10px);
+    pointer-events: none;
+}
+
 .column {
     float: left;
     width: 19%;
@@ -124,7 +129,7 @@ ul {
 /* Forms */
 
 .taskForm {
-    visibility: hidden;
+    /*visibility: hidden;*/
     background-color: rgba(255, 255, 255, 0.745);
     border-radius: var(--cornerRadius);
     padding: var(--cornerRadius);
@@ -168,6 +173,10 @@ ul {
     animation: fadeIn 1s;
 }
 
+#task-flyer span {
+    display: block;
+    padding: var(--cornerRadius);
+}
 
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}

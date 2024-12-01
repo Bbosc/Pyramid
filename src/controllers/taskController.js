@@ -85,3 +85,18 @@ exports.deleteTaskByName = async (req, res) => {
       res.status(500).send("Error deleting item");
   }
 };
+
+exports.completeTask = async (req, res) => {
+    try {
+
+        const task = await Task.findById(req.query.id);
+        const newStatus = Boolean(!task.isCompleted);
+        task.isCompleted = newStatus;
+        await task.save();
+        console.log("Completion status updated successfully");
+        res.status(200).redirect('/tasks');
+    } catch (error) {
+        console.error("Error modifying completion status: ", error);
+    }
+}
+

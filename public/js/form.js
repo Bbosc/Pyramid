@@ -30,10 +30,11 @@ function createForm(name, action, method) {
     var form = document.createElement("form");
     form.action = action;
     form.method = method;
-    
-    const creatableFields = ["name", "description", "tier", "parents", "deadline"];
-    const editableFields = ["id", "name", "description", "tier", "parents", "deadline"];
-    const fields = ((name === "newTaskForm") ? creatableFields : editableFields);
+
+    const fields = ["name", "description", "tier", "parents", "deadline"];
+    if (name === "editTaskForm") {
+        form.appendChild(createInput("id", "text", name))
+    }
     fields.forEach((field) => {
         if (field === "tier") {
             form.appendChild(createInput(field, "number", name));
@@ -53,18 +54,42 @@ function createForm(name, action, method) {
     button.innerText = "Submit";
     button.appendChild(icon);
     form.appendChild(button);
-    if (name === "editTaskForm") {
-        var cancelButton = document.createElement("button");
-        cancelButton.className = "form-btn";
-        cancelButton.type = "button";
-        cancelButton.onclick = function (){
-            popEditTaskForm();
-        }
-        cancelButton.innerText = "Cancel";
-        form.appendChild(cancelButton);
+    var cancelButton = document.createElement("button");
+    cancelButton.className = "form-btn";
+    cancelButton.type = "button";
+    cancelButton.onclick = function (){
+        div.remove();
+        document.getElementById("tasks-container").classList.toggle("inactive-bg");
+        document.getElementById("new-task").classList.toggle("inactive-bg");
     }
-
-
+    cancelButton.innerText = "Cancel";
+    form.appendChild(cancelButton);
     div.appendChild(form);
     document.body.appendChild(div);
+}
+
+
+function createValidationForm(task) {
+
+    var div = document.createElement("div");
+    div.className = "validationForm";
+
+    var form = document.createElement("form");
+    form.action = "/tasks/completed/query?id="+task._id.toString();
+    form.method = "POST";
+
+    var label = document.createElement("label");
+    label.htmlFor = "validation";
+    label.innerText = "Completed";
+    var input = document.createElement("input");
+    input.type = "checkbox";
+    input.name = "validation";
+    input.onchange = function () {
+        form.submit();
+    } 
+
+    form.append(label, input);
+    div.appendChild(form);
+
+    return div;
 }

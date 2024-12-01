@@ -8,6 +8,7 @@ router.post('/save', taskController.saveTask);
 router.post('/delete/:name', taskController.deleteTaskByName);
 // update
 router.post('/edit', taskController.editTask);
+router.post('/completed/:id', taskController.completeTask);
 // get
 router.get('/', taskController.getAllTasks);
 router.get('/json', taskController.getAllTasksJson);

@@ -21,6 +21,9 @@ function displayTaskPerTiers(tasks, tier) {
         editButton.name = "name";
         editButton.value = task.name;
         editButton.onclick = function() {
+            document.getElementById("tasks-container").classList.toggle("inactive-bg");
+            document.getElementById("new-task").classList.toggle("inactive-bg");
+            createForm("editTaskForm", "/tasks/edit", "POST");
             const form = document.getElementById("editTaskForm");
             document.getElementById(form.id + "-id").value = task._id.toString();
             document.getElementById(form.id + "-name").value = task.name;
@@ -28,7 +31,6 @@ function displayTaskPerTiers(tasks, tier) {
             document.getElementById(form.id + "-tier").value = task.tier;
             document.getElementById(form.id + "-parents").value = task.parents;
             document.getElementById(form.id + "-deadline").value = task.deadline.toString().split('T')[0];
-            popEditTaskForm();
         }
         const editIcon = document.createElement("i");
         editIcon.className = "fa fa-edit";
@@ -46,14 +48,15 @@ function displayTaskPerTiers(tasks, tier) {
         deleteButton.appendChild(deleteIcon);
         deleteForm.appendChild(deleteButton);
 
-        li.appendChild(editButton);
-        li.appendChild(deleteForm);
-
         li.addEventListener("click", function() {
           displayTaskInformation(task);
+          document.getElementById("new-task").classList.toggle("inactive-bg");
+          document.getElementById("tasks-container").classList.toggle("inactive-bg");
       })
 
         ul.appendChild(li);
+        ul.appendChild(editButton);
+        ul.appendChild(deleteForm);
     })
     div.appendChild(title);
     div.appendChild(ul);
@@ -76,21 +79,13 @@ function displayTaskInformation(task) {
     updateTime();
     setInterval(updateTime, 1000);
 
-
-    var completionButton = document.createElement("button");
-    completionButton.type = "submit";
-    completionButton.innerText = "Completed ?"
-
-    div.append(header, descriptionSpan, deadlineSpan, completionButton);
+    var validationForm = createValidationForm(task);
+    if (task.isCompleted) {
+        console.log("should check the box");
+        validationForm.querySelector("input").checked = true;
+    }
+    div.append(header, descriptionSpan, deadlineSpan, validationForm);
     document.body.appendChild(div);
-
-    var background = document.getElementById("tasks-container");
-    var newTaskSection = document.getElementById("new-task");
-    background.style.filter = `blur(10px)`;
-    background.style.pointerEvents = "none";
-    newTaskSection.style.filter = `blur(10px)`;
-    newTaskSection.style.pointerEvents = "none";
-
 }
 
 function timeRemaining(taskDeadline) {
@@ -99,12 +94,10 @@ function timeRemaining(taskDeadline) {
     if (differenceInMs <= 0) {
         return 'Deadline reached';
     }
-
     const days = Math.floor(differenceInMs / (1000 * 60 * 60 * 24));
     const hours = Math.floor((differenceInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((differenceInMs % (1000 * 60 * 60)) / (1000 * 60));
     const seconds = Math.floor((differenceInMs % (1000 * 60)) / 1000);
-
     let result = '';
     if (days > 0) result += `${days} days, `;
     if (hours > 0) result += `${hours} hours, `;
@@ -115,45 +108,12 @@ function timeRemaining(taskDeadline) {
 }
 
 
-function popNewTaskForm() {
-    var background = document.getElementById("tasks-container");
-    var icon = document.getElementById("new-icon");
-    var form = document.getElementById("newTaskForm");
-    if (form.style.visibility == "hidden" || form.style.visibility == '') {
-        form.style.visibility = "visible";
-        form.style.backdropFilter = `blur(10px)`;
-        background.style.filter = `blur(10px)`;
-        background.style.pointerEvents = "none";
-        icon.className = "fa fa-minus-square fa-2x";
-    } else {
-        background.style.filter = `blur(0px)`;
-        background.style.pointerEvents = "";
-        icon.className = "fa fa-plus-square fa-2x";
-        form.style.visibility = "hidden";
-        form.style.backdropFilter = `none`;
-    }
+function createTaskForm() {
+    document.getElementById("new-task").classList.toggle("inactive-bg");
+    document.getElementById("tasks-container").classList.toggle("inactive-bg");
+    createForm("newTaskForm", "/tasks/save", "POST");
 }
 
-function popEditTaskForm() {
-    var background = document.getElementById("tasks-container");
-    var newTaskSection = document.getElementById("new-task");
-    var form = document.getElementById("editTaskForm");
-    if (form.style.visibility == "hidden" || form.style.visibility == '') {
-        form.style.visibility = "visible";
-        form.style.backdropfilter = `blur(10px)`;
-        background.style.filter = `blur(10px)`;
-        background.style.pointerEvents = "none";
-        newTaskSection.style.filter = `blur(10px)`;
-        newTaskSection.style.pointerEvents = "none";
-    } else {
-        background.style.filter = `blur(0px)`;
-        background.style.pointerEvents = "";
-        newTaskSection.style.filter = `blur(0px)`;
-        newTaskSection.style.pointerEvents = "";
-        form.style.visibility = "hidden";
-        form.style.backdropfilter = `none`;
-    }
-}
 
 window.addEventListener("keydown", function (event) {
     var background = document.getElementById("tasks-container");
@@ -162,16 +122,20 @@ window.addEventListener("keydown", function (event) {
     var editForm = document.getElementById("editTaskForm")
     var taskFlyer = document.getElementById("task-flyer");
     if (event.key === "Escape") {
-        if (newForm.style.visibility === "visible") {
-            popNewTaskForm();
-        } else if (editForm.style.visibility === "visible") {
-            popEditTaskForm();
+        if (newForm) {
+            newForm.remove();
+            background.classList.toggle("inactive-bg");
+            newTaskSection.classList.toggle("inactive-bg");
+        } else if (editForm) {
+            editForm.remove();
+            background.classList.toggle("inactive-bg");
+            newTaskSection.classList.toggle("inactive-bg");
         } else if (taskFlyer) {
             taskFlyer.remove();
-            background.style.filter = `blur(0px)`;
-            background.style.pointerEvents = "";
-            newTaskSection.style.filter = `blur(0px)`;
-            newTaskSection.style.pointerEvents = "";
+            background.classList.toggle("inactive-bg");
+            newTaskSection.classList.toggle("inactive-bg");
+            //newTaskSection.style.filter = `blur(0px)`;
+            //newTaskSection.style.pointerEvents = "";
         }
     }
 })

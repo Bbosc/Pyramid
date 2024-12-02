@@ -44,6 +44,18 @@ body, html {
     color: white;
 }
 
+#new-task button {
+    border: none;
+    color: white;
+    background-color: transparent;
+    margin-left: 10px;
+}
+
+#new-task button:hover {
+    cursor: pointer;
+    color: var(--pGold);
+}
+
 h2 {
     position: absolute;
     top: -50px;
@@ -74,19 +86,15 @@ h2 {
     margin-right: 5px;
 }
 
-
-ul {
-    padding: 0;
-}
-
 .task {
     display: grid;
-    grid-template-columns: 78% 10% 10%;
+    grid-template-columns: 75% 10% 10%;
     color: var(--pGold);
-    width: 100%;
     background-color: var(--pDarkBlue);
-    margin-top: 4px;
-    margin-bottom: 4px;
+    padding: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
 }
 
 .task:hover {
@@ -95,16 +103,14 @@ ul {
     font-weight: bold;
 }
 
-/* Buttons */
-
-.btn {
+.task button {
     border: none;
     color: white;
     background-color: transparent;
     margin-left: 10px
 }
 
-.btn:hover {
+.task button:hover {
     cursor: pointer;
     color: var(--pGold);
 }
@@ -118,7 +124,8 @@ ul {
     border-radius: var(--cornerRadius);
     color: black;
     background-color: transparent;
-    margin-left: 10px
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .form-btn:hover {

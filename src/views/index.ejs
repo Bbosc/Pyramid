@@ -20,7 +20,7 @@
         </button>
     </div>
 
-    <div id="tasks-container" class="inactive-bg">
+    <!--<div id="tasks-container" class="inactive-bg">
         <script>
             const tasks = <%- JSON.stringify(tasks)%>;
             window.onload = displayTaskPerTiers(tasks, 4);
@@ -29,6 +29,27 @@
             window.onload = displayTaskPerTiers(tasks, 1);
             window.onload = displayTaskPerTiers(tasks, 0);
         </script>
+    </div> -->
+
+    <div id="tasks-container" class="inactive-bg">
+        <% for (let i=4; i >=0; i--) { %>
+            <div class="column">
+                <h2>Tier <%=i %></h2>
+                <% tasks
+                 .filter(function (task) { return task.tier === i ;})
+                 .forEach(function (task) { %>
+                    <div class="task">
+                        <span onclick="displayTaskInfo(<%= JSON.stringify(task) %>)"><%=task.name%></span>
+                        <button onclick="createEditForm(<%= JSON.stringify(task) %>)">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                        <button onclick="submitDeleteForm('<%- task._id %>')">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                    </div>
+                <% }); %>
+            </div>
+        <% } %>
     </div>
 
     <script>

@@ -72,18 +72,13 @@ exports.editTask = async (req, res) => {
 
 // delete
 
-exports.deleteTaskByName = async (req, res) => {
-  try {
-    const task = await Task.findOneAndDelete({name:req.body.name})
-    if (task) {
-      res.status(200).redirect('/tasks');
-    } else {
-      res.status(500).json({message: `Task with name ${req.body.name} could not be deleted`});
-      console.error("Error deleting task: ", err);
-    }
-  } catch (error) {
-      res.status(500).send("Error deleting item");
-  }
+exports.deleteTask = async (req, res) => {
+    Task.findByIdAndDelete(req.query.id)
+        .then(() => res.status(200).json({message: `Task _id ${req.query.id} deleted`}))
+        .catch((err) => {
+            console.error("Error deleting task: ", err);
+            res.status(500).json({message: `Task _id ${req.query.id} could not be deleted`});
+        })
 };
 
 exports.completeTask = async (req, res) => {

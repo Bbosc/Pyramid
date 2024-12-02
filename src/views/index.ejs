@@ -20,17 +20,6 @@
         </button>
     </div>
 
-    <!--<div id="tasks-container" class="inactive-bg">
-        <script>
-            const tasks = <%- JSON.stringify(tasks)%>;
-            window.onload = displayTaskPerTiers(tasks, 4);
-            window.onload = displayTaskPerTiers(tasks, 3);
-            window.onload = displayTaskPerTiers(tasks, 2);
-            window.onload = displayTaskPerTiers(tasks, 1);
-            window.onload = displayTaskPerTiers(tasks, 0);
-        </script>
-    </div> -->
-
     <div id="tasks-container" class="inactive-bg">
         <% for (let i=4; i >=0; i--) { %>
             <div class="column">

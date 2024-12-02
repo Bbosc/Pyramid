@@ -30,6 +30,8 @@ body, html {
     background-size: cover;
 }
 
+/* Top section */
+
 #new-task {
     position: absolute;
     display: flex;
@@ -56,11 +58,9 @@ body, html {
     color: var(--pGold);
 }
 
-h2 {
-    position: absolute;
-    top: -50px;
-    color: white;
-}
+
+/* Container of task tiers */
+
 
 #tasks-container {
     position: absolute;
@@ -84,6 +84,12 @@ h2 {
     border: 2px solid var(--transarentHiglight);
     border-radius: var(--cornerRadius);
     margin-right: 5px;
+}
+
+.column h2 {
+    position: absolute;
+    top: -50px;
+    color: white;
 }
 
 .task {
@@ -115,6 +121,8 @@ h2 {
     color: var(--pGold);
 }
 
+/* Forms */
+
 .form-btn {
     width: 100px;
     height: 40px;
@@ -133,10 +141,8 @@ h2 {
     color: var(--pDarkBlue);
 }
 
-/* Forms */
 
 .taskForm {
-    /*visibility: hidden;*/
     background-color: rgba(255, 255, 255, 0.745);
     border-radius: var(--cornerRadius);
     padding: var(--cornerRadius);
@@ -199,6 +205,8 @@ h2 {
     margin: 0 auto;
     color: red;
 }
+
+/* Animations */
 
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}

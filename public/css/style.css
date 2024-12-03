@@ -58,6 +58,24 @@ body, html {
     color: var(--pGold);
 }
 
+/* Filters */
+
+#filters {
+    position: absolute;
+    top: 20%;
+    left: 2%;
+}
+
+#filters .filter {
+    display: inline;
+    margin-right: 20px;
+    background-color: transparent;
+    color: white;
+}
+
+#filters .filter input {
+    border: none;
+}
 
 /* Container of task tiers */
 

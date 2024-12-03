@@ -25,6 +25,7 @@ exports.saveTask = async (req, res) => {
 exports.getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find();
+    console.log(tasks);
     res.render("index", {tasks});
   } catch (error) {
     res.status(500).json({error: error.message});

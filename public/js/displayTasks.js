@@ -1,3 +1,42 @@
+function renderTasks(tasks) {
+    for (let i = 4; i >=0; i--) {
+        // creating a column div to store the tasks of a specific tier inside
+        var column = document.createElement("div");
+        column.className = "column";
+        var header = document.createElement("h2");
+        header.innerText = "Tier " + i;
+        column.appendChild(header);
+        // populate the column with task divs
+        tasks.forEach(element => {
+            if (element.tier === i) {
+                var task = createTaskDiv(element);
+                column.appendChild(task);
+            }
+        });
+        document.getElementById('tasks-container').appendChild(column);
+    }
+}
+
+function createTaskDiv(task) {
+    var div = document.createElement("div");
+    div.className = "task";
+    var span = document.createElement("span");
+    span.onclick = function() {displayTaskInfo(task);};
+    span.innerText = task.name;
+    var editButton = document.createElement("button");
+    editButton.onclick = function() {createEditForm(task);};
+    var editIcon = document.createElement("i");
+    editIcon.className = "fa fa-edit";
+    var deleteButton = document.createElement("button");
+    //deleteButton.onclick = function() {submitDeleteForm(task._id);};
+    var deleteIcon = document.createElement("i");
+    deleteIcon.className = "fa fa-trash";
+    deleteButton.appendChild(deleteIcon);
+    editButton.appendChild(editIcon);
+    div.append(span, editButton, deleteButton);
+    return div;
+}
+
 function createEditForm(task) {
     document.getElementById("tasks-container").classList.toggle("inactive-bg");
     document.getElementById("new-task").classList.toggle("inactive-bg");
@@ -85,6 +124,20 @@ function createTaskForm() {
     createForm("newTaskForm", "/tasks/save", "POST");
 }
 
+function applyActiveFilters(task) {
+    const pending = document.getElementById("filterPending");
+    const completed = document.getElementById("filterCompleted");
+    if (pending.checked && completed.checked) {
+        return true;
+    } else if (pending.checked && !completed.checked) {
+        return !task.isCompleted;
+    } else if (!pending.checked && completed.checked) {
+        return task.isCompleted;
+    } else {
+        return false;
+    }
+}
+
 
 window.addEventListener("keydown", function (event) {
     var background = document.getElementById("tasks-container");
@@ -108,3 +161,4 @@ window.addEventListener("keydown", function (event) {
         }
     }
 })
+

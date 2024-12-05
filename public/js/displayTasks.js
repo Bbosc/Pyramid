@@ -33,7 +33,8 @@ function createTaskDiv(task) {
     deleteIcon.className = "fa fa-trash";
     deleteButton.appendChild(deleteIcon);
     editButton.appendChild(editIcon);
-    div.append(span, editButton, deleteButton);
+    //div.append(span, editButton, deleteButton);
+    div.append(span, editButton);
     return div;
 }
 

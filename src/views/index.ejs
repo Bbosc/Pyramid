@@ -6,9 +6,11 @@
     <title>Pyramid interface</title>
     <link rel="icon" type="image/x-icon" href="/images/pyramid.ico">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/calendar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/displayTasks.js"></script>
     <script type="text/javascript" src="/js/form.js"></script>
+    <script type="text/javascript" src="/js/calendar.js"></script>
 </head>
 <body>
     <div id="home-image"></div>
@@ -22,12 +24,12 @@
 
     <div id=filters>
           <div class="filter">
-              <input type="checkbox" id="filterCompleted" class="filter-input"/>
-              <label for="filter-completed">completed</label>
+              <input type="checkbox" id="filterCompleted" name="filter-completed"/>
+              <label for="filterCompleted">completed</label>
           </div>
           <div class="filter">
               <input type="checkbox" id="filterPending" name="filter-pending" checked/>
-              <label for="filter-pending">pending</label>
+              <label for="filterPending">pending</label>
           </div>
           <script>
             const pending = document.getElementById("filterPending");
@@ -37,11 +39,32 @@
           </script>
     </div>
 
+    <div id=views>
+        <div class=view>
+              <input type="radio" id="listView" value="list" name="view" checked/>
+              <label for="list-view">list</label>
+        </div>
+        <div class=view>
+              <input type="radio" id="calendarView" value="calendar" name="view"/>
+              <label for="calendar-view">calendar</label>
+        </div>
+        <script>
+            const listView = document.getElementById("listView");
+            const calendarView = document.getElementById("calendarView");
+            listView.addEventListener('change', function () {location.reload();});
+            calendarView.addEventListener('change', function () {location.reload();});
+        </script>
+    </div>
+
     <div id="tasks-container" class="inactive-bg">
         <script>
             const allTasks = <%-JSON.stringify(tasks)%>;
             const filteredTasks = allTasks.filter((task) => applyActiveFilters(task));
-            renderTasks(filteredTasks);
+            if (document.getElementById('calendarView').checked) {
+                displayCalendar(filteredTasks);
+            } else {
+                renderTasks(filteredTasks);
+            }
         </script>
     </div>
 

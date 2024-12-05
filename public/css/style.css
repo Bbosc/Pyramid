@@ -77,6 +77,25 @@ body, html {
     border: none;
 }
 
+/* Views */
+
+#views {
+    position: absolute;
+    top: 20%;
+    right: 2%;
+}
+
+#views .view {
+    display: inline;
+    margin-right: 20px;
+    background-color: transparent;
+    color: white;
+}
+
+#views .view input {
+    border: none;
+}
+
 /* Container of task tiers */
 
 
@@ -85,13 +104,19 @@ body, html {
     top: 30%;
     left: 2%;
     height: 69%;
-    width: 98%;
+    width: 96%;
     border-radius: var(--cornerRadius);
 }
 
 .inactive-bg {
     filter: blur(10px);
     pointer-events: none;
+}
+
+#tasks-container h2 {
+    position: absolute;
+    top: -50px;
+    color: white;
 }
 
 .column {
@@ -104,15 +129,10 @@ body, html {
     margin-right: 5px;
 }
 
-.column h2 {
-    position: absolute;
-    top: -50px;
-    color: white;
-}
-
 .task {
     display: grid;
-    grid-template-columns: 75% 10% 10%;
+    /*grid-template-columns: 75% 10% 10%;*/
+    grid-template-columns: 85% 10%;
     color: var(--pGold);
     background-color: var(--pDarkBlue);
     padding: 0;

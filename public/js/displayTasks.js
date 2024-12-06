@@ -103,6 +103,7 @@ function displayTaskInformation(task) {
 
 function timeRemaining(taskDeadline) {
     const now = new Date();
+    now.setDate(now.getDate()-1);
     const differenceInMs = taskDeadline - now;
     if (differenceInMs <= 0) {
         return 'Deadline reached';

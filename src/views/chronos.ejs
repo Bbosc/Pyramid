@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Chronos</title>
+        <link rel="stylesheet" type="text/css" href="/css/chronos.css">
+        <link rel="icon" type="image/x-icon" href="/images/timelapse.ico">
+        <script type="text/javascript" src="/js/chronos.js"></script>
+    </head>
+
+    <body>
+
+        <div id="day-container">
+
+            <div id="clock-wrapper">
+                <div id="clock-display">
+                    <div id="clock"></div>
+                </div>
+            </div>
+            <div id="day">
+                <div id="day-progression">
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const day = new Day("day", "tasks.json");
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            const formattedDate = today.toLocaleDateString(undefined, options);
+            document.getElementById("clock-wrapper").setAttribute('today-date', formattedDate);
+        </script>
+
+    </body>
+</html>
+

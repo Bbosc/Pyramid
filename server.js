@@ -3,6 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require('dotenv').config({path: __dirname+"/./src/config/.env"});
 const taskRoutes = require("./src/routes/taskRoutes");
+const chronosRoutes = require("./src/routes/chronosRoutes");
 
 
 const app = express();
@@ -19,11 +20,12 @@ app.use(express.json());
 app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
-app.get('/', function (req, res) {
+app.get('/', function (_req, res) {
   res.redirect('/tasks');
 });
 
 app.use("/tasks", taskRoutes);
+app.use("/chronos", chronosRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

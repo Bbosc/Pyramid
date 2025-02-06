@@ -1,0 +1,127 @@
+:root {
+    --corner-radius: 10px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#day-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100%;
+    background: url('../images/wallpaper.gif') no-repeat center center fixed;
+    background-size: cover;
+}
+
+#day {
+    --space: 5px;
+    display: grid;
+    grid-template-rows: repeat(52, 18px);
+    grid-template-columns: 25% 1fr;
+    position: relative;
+    padding: var(--space);
+    width: 400px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border: 2px solid white;
+    border-radius: var(--corner-radius);
+    backdrop-filter: blur(5px);
+
+    .task, .starting-time {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 2px solid black;
+        border-radius: var(--corner-radius);
+        transition: transform 0.3s ease-in-out;
+    }
+    .starting-time {
+        background-color: rgba(255, 255, 255, 0.7);
+        border: 2px solid black;
+        border-radius: var(--corner-radius);
+    }
+
+}
+
+#day-progression {
+    position: absolute;
+    height: 30px;
+    border: none;
+    border-radius: var(--corner-radius);
+    width: 100%;
+    left: 0;
+    background: linear-gradient(to top, red, transparent);
+    z-index: 2;
+}
+
+/*** CLOCK ***/
+
+#clock-wrapper {
+    position: absolute;
+    right: 15%;
+    top: 35%;
+    height: 100px;
+    width: 360px;
+    background-color: transparent;
+    border: 2px solid white;
+    border-radius: 15px;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(90deg, white, red, white);
+}
+
+#clock-wrapper::before {
+    content: attr(today-date);
+    position: absolute;
+    top: -50%; 
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: larger;
+    font-weight: bold;
+    color: white;
+}
+
+#clock-wrapper #clock-display,
+#clock-wrapper span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#clock-wrapper #clock-display {
+    height: 85px;
+    width: 345px;
+    background-color: transparent;
+    border-radius: 6px;
+    text-align: center;
+}
+
+#clock-display #clock {
+    line-height: 85px;
+    color: white;
+    font-size: 50px;
+    font-weight: 600;
+    letter-spacing: 10px;
+    background: linear-gradient(90deg, white, red, white);
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: animate 4s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+

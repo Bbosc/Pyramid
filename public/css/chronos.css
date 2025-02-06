@@ -7,6 +7,28 @@ html, body {
     margin: 0;
 }
 
+
+.home-button {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    width: 100px;
+    height: 100px;
+    background-image: url('../images/home.gif');
+    background-size: cover;
+    z-index: 2;
+    transition: transform 0.3s ease-in-out;
+    a {
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+.home-button:hover {
+    transform: scale(1.2);
+}
+
 #day-container {
     display: flex;
     justify-content: center;

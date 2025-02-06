@@ -1,0 +1,77 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+.menu-container {
+    position: relative;
+    height: 100%;
+    margin: 0 auto;
+    background: url('../images/time.gif') no-repeat center center fixed;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.donut {
+    --transparent: rgba(255, 255, 255, 0.1);
+    width: 500px; /* Outer diameter */
+    height: 500px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2%;
+}
+
+
+.quarter {
+    width: 250px; /* Half the diameter of the donut */
+    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent background */
+    transition: all 0.3s ease;
+}
+
+
+.quarter-1 {
+    border-top-left-radius: 500px;
+    border-bottom-left-radius: 500px;
+    background: radial-gradient(
+        circle at 100% 50%,
+        transparent 150px,
+        var(--transparent) 150px,
+        var(--transparent) 200px,
+        var(--transparent) 500px
+    );
+}
+.quarter-1:hover {
+    transform: scale(1.1) translateX(-20px);
+}
+
+@keyframes typing {
+    from {width: 0;}
+    to {width: 100%;}
+}
+
+.quarter-1:focus #pyramid-header {
+  animation: typing 3s steps(20) forwards;
+}
+
+.quarter-2 {
+    border-top-right-radius: 500px;
+    border-bottom-right-radius: 500px;
+    background: radial-gradient(
+        circle at 0% 50%,
+        transparent 150px, /* Inner radius (hole) */
+        var(--transparent) 150px, /* Start of the donut */
+        var(--transparent) 200px, /* End of the donut */
+        red 500px/* Outer edge */
+    );
+}
+.quarter-2:hover {
+    transform: scale(1.1) translateX(20px);
+}
+
+
+

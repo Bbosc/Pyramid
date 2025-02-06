@@ -21,7 +21,7 @@ app.use(express.static(__dirname + "/public"));
 app.use(bodyParser.urlencoded({extended: true}));
 
 app.get('/', function (_req, res) {
-  res.redirect('/tasks');
+  res.render('home');
 });
 
 app.use("/tasks", taskRoutes);

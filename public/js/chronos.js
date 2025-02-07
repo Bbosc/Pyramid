@@ -44,58 +44,22 @@ const tasks = [
 
 class Day {
     constructor(containerId, dailyTasks) {
-        this.containerId = containerId;
+        this.container = document.getElementById(containerId);
         this.tasks = dailyTasks;
         this.minHour = 8 * 60;
         this.maxHour = 21 * 60;
         this.minSlot = 15;
+        setInterval(() => {
+            this.updateProgression();
+        });
         this.render();
     }
 
     render() {
-        const container = document.getElementById(this.containerId);
-        if (!container) {
-            console.error("Container not found!");
-            return;
-        }
-        setInterval(() => {
-            this.updateProgression();
-        });
-
-        let totalTasks = this.tasks.concat(this.fillEmptySlots(this.tasks));
+        let activeTasks = this.tasks.map((task) => new ActiveTask(task));
+        let totalTasks = activeTasks.concat(this.fillEmptySlots(activeTasks));
         totalTasks.forEach(task => {
-
-            var descDiv = document.createElement("div");
-            descDiv.className = "task";
-
-            let startingTime;
-            if (task.title == '-') {
-                startingTime =  task.startingTime;
-                descDiv.classList.toggle("inactive-task");
-            } else {
-                startingTime = this.strToMinutes(task.startingTime);
-            }
-            const startingSlot = (startingTime - this.minHour)/this.minSlot + 1;
-            const endingSlot = (startingTime - this.minHour + task.duration)/this.minSlot + 1;
-
-            descDiv.style.gridRowStart = startingSlot;
-            descDiv.style.gridRowEnd = endingSlot;
-            descDiv.style.gridColumnStart = 2;
-
-            var p = document.createElement("p");
-            p.className = "task-name";
-            p.innerText = task.title;
-            descDiv.appendChild(p);
-
-            var timeDiv = document.createElement("div");
-            timeDiv.className = "starting-time";
-            timeDiv.innerText = task.startingTime;
-            timeDiv.style.gridRowStart = startingSlot;
-            timeDiv.style.gridRowEnd = endingSlot;
-            timeDiv.style.gridColumnStart = 1;
-            
-            container.appendChild(descDiv);
-            container.appendChild(timeDiv);
+            task.create();
         });
     }
     
@@ -105,76 +69,51 @@ class Day {
         const currentMinutes = now.getHours() * 60 + now.getMinutes();
         let progress = (currentMinutes - this.minHour) / (this.maxHour - this.minHour);
         progress = Math.max(0, Math.min(1, progress));
-
-        const container = document.getElementById("day");
-        const barPosition = progress * (container.clientHeight - progressionBar.clientHeight);
+        const barPosition = progress * (this.container.clientHeight - progressionBar.clientHeight);
         progressionBar.style.top = `${barPosition}px`;
-
     }
 
     fillEmptySlots(tasks) {
         tasks.sort((a, b) => {
-            if (this.strToMinutes(a.startingTime) > this.strToMinutes(b.startingTime)) return 1;
+            if (a.startingTime > b.startingTime) return 1;
             else return -1;
         });
         let emptySlots = [];
         for (let i=0; i < tasks.length; i++) {
             if (i === 0) {
-                if (this.strToMinutes(tasks[i].startingTime) - this.minHour) {
+                if (tasks[i].startingTime - this.minHour) {
                     let start = this.minHour;
-                    let end = this.strToMinutes(tasks[i].startingTime);
-                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                    let end = tasks[i].startingTime;
+                    emptySlots.push(new InactiveTask({'startingTime': start, 'duration': end-start}));
                 }
             }
             if (i < tasks.length-1) {
-                if (this.strToMinutes(tasks[i+1].startingTime) - this.strToMinutes(tasks[i].startingTime) + tasks[i].duration) {
-                    let start = this.strToMinutes(tasks[i].startingTime) + tasks[i].duration;
-                    let end = this.strToMinutes(tasks[i+1].startingTime);
-                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                if (tasks[i+1].startingTime - tasks[i].startingTime + tasks[i].duration) {
+                    let start = tasks[i].startingTime + tasks[i].duration;
+                    let end = tasks[i+1].startingTime;
+                    emptySlots.push(new InactiveTask({'startingTime': start, 'duration': end-start}));
                 }
             }
             if (i === tasks.length-1) {
-                if (this.maxHour - this.strToMinutes(tasks[i].startingTime)+tasks[i].duration) {
-                    let start = this.strToMinutes(tasks[i].startingTime) + tasks[i].duration;
+                if (this.maxHour - tasks[i].startingTime+tasks[i].duration) {
+                    let start = tasks[i].startingTime + tasks[i].duration;
                     let end = this.maxHour;
-                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                    emptySlots.push(new InactiveTask({'startingTime': start, 'duration': end-start}));
                 }
             }
         }
         return emptySlots;
     }
 
-    strToMinutes(strTime) {
-        const startingHour = parseInt(strTime.split('h')[0]);
-        const startingMin = parseInt(strTime.split('h')[1]);
-        let startingTime = startingHour * 60;
-        if (!isNaN(startingMin)) {
-            startingTime += startingMin;
-        }
-        return startingTime;
-    }
 }
-
-setInterval(() => {
-    const clock = document.getElementById("clock");
-    let date = new Date();
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    if (minutes < 10) {
-        minutes = "0" + minutes;
-    }
-    if (hours < 10) {
-        hours = "0" + hours;
-    }
-    clock.textContent = hours + ":" + minutes;
-});
-
 
 class Task {
     constructor(task) {
-        this.title = task.title;
         this.duration = task.duration;
         this.container = document.getElementById("day");
+        this.minHour = 8 * 60;
+        this.maxHour = 21 * 60;
+        this.minSlot = 15; 
     }
 
     strToMinutes(strTime) {
@@ -188,8 +127,8 @@ class Task {
     }
     
     minutesToStr(minTime) {
-        const hours = `${Math.floor(minTime / 60)}`;
-        const minutes = `${minTime % 60}`;
+        let hours = `${Math.floor(minTime / 60)}`;
+        let minutes = `${minTime % 60}`;
         if (minutes < 10) minutes = "0" + minutes;
         if (hours < 10) hours = "0" + hours;
         return hours + "h" + minutes;
@@ -198,11 +137,10 @@ class Task {
     create() {
         const rowStart = (this.startingTime - this.minHour)/this.minSlot + 1;
         const rowEnd = (this.startingTime - this.minHour + this.duration)/this.minSlot + 1;
-        
         let descDiv = this.createDiv(rowStart, rowEnd);
         let p = this.createParagraph();
         descDiv.appendChild(p);
-        let timeDiv = this.createTimeSlot(startingSlot, endingSlot);
+        let timeDiv = this.createTimeSlot(rowStart, rowEnd);
         this.container.appendChild(descDiv);
         this.container.appendChild(timeDiv);
     }
@@ -237,15 +175,44 @@ class Task {
 class InactiveTask extends Task {
     constructor(task) {
         super(task);
+        this.title = '-';
         this.startingTime = task.startingTime;
         this.startingTimeTxt = this.minutesToStr(task.startingTime);
     }
+    
+    createDiv(rowStart, rowEnd) {
+        let div = document.createElement("div");
+        div.className = "task";
+        div.classList.add('inactive-task');
+        div.style.gridRowStart = rowStart;
+        div.style.gridRowEnd = rowEnd;
+        div.style.gridColumnStart = 2;
+        return div;
+    }
 }
+
 
 class ActiveTask extends Task {
     constructor(task) {
         super(task);
+        this.title = task.title;
         this.startingTime = this.strToMinutes(task.startingTime);
         this.startingTimeTxt = task.startingTime;
     }
 }
+
+setInterval(() => {
+    const clock = document.getElementById("clock");
+    let date = new Date();
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    if (minutes < 10) {
+        minutes = "0" + minutes;
+    }
+    if (hours < 10) {
+        hours = "0" + hours;
+    }
+    clock.textContent = hours + ":" + minutes;
+});
+
+

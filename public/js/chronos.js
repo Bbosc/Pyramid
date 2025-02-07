@@ -173,8 +173,8 @@ setInterval(() => {
 class Task {
     constructor(task) {
         this.title = task.title;
-        this.startingTime = task.startingTime;
         this.duration = task.duration;
+        this.container = document.getElementById("day");
     }
 
     strToMinutes(strTime) {
@@ -185,5 +185,67 @@ class Task {
             startingTime += startingMin;
         }
         return startingTime;
+    }
+    
+    minutesToStr(minTime) {
+        const hours = `${Math.floor(minTime / 60)}`;
+        const minutes = `${minTime % 60}`;
+        if (minutes < 10) minutes = "0" + minutes;
+        if (hours < 10) hours = "0" + hours;
+        return hours + "h" + minutes;
+    }
+
+    create() {
+        const rowStart = (this.startingTime - this.minHour)/this.minSlot + 1;
+        const rowEnd = (this.startingTime - this.minHour + this.duration)/this.minSlot + 1;
+        
+        let descDiv = this.createDiv(rowStart, rowEnd);
+        let p = this.createParagraph();
+        descDiv.appendChild(p);
+        let timeDiv = this.createTimeSlot(startingSlot, endingSlot);
+        this.container.appendChild(descDiv);
+        this.container.appendChild(timeDiv);
+    }
+
+    createDiv(rowStart, rowEnd) {
+        let desc = document.createElement("div");
+        desc.className = "task";
+        desc.style.gridRowStart = rowStart;
+        desc.style.gridRowEnd = rowEnd;
+        desc.style.gridColumnStart = 2;
+        return desc
+    }
+
+    createParagraph() {
+        let p = document.createElement("p");
+        p.className = "task-name";
+        p.innerText = this.title;
+        return p;
+    }
+
+    createTimeSlot(rowStart, rowEnd) {
+        let time = document.createElement("div");
+        time.className = "starting-time";
+        time.innerText = this.startingTimeTxt;
+        time.style.gridRowStart = rowStart;
+        time.style.gridRowEnd = rowEnd
+        time.style.gridColumnStart = 1;
+        return time;
+    }
+}
+
+class InactiveTask extends Task {
+    constructor(task) {
+        super(task);
+        this.startingTime = task.startingTime;
+        this.startingTimeTxt = this.minutesToStr(task.startingTime);
+    }
+}
+
+class ActiveTask extends Task {
+    constructor(task) {
+        super(task);
+        this.startingTime = this.strToMinutes(task.startingTime);
+        this.startingTimeTxt = task.startingTime;
     }
 }

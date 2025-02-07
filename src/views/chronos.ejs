@@ -29,7 +29,10 @@
         </div>
 
         <script>
-            const day = new Day("day", "tasks.json");
+            const dailyTasks = <%-JSON.stringify(dailyTasks)%>;
+            console.log(dailyTasks);
+
+            const day = new Day("day", dailyTasks);
             const today = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
             const formattedDate = today.toLocaleDateString(undefined, options);

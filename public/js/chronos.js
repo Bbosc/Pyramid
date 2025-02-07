@@ -43,10 +43,9 @@ const tasks = [
 
 
 class Day {
-    constructor(containerId, jsonUrl) {
+    constructor(containerId, dailyTasks) {
         this.containerId = containerId;
-        this.jsonUrl = jsonUrl;
-        this.tasks = tasks;
+        this.tasks = dailyTasks;
         this.minHour = 8 * 60;
         this.maxHour = 21 * 60;
         this.minSlot = 15;
@@ -65,8 +64,8 @@ class Day {
 
         this.tasks.forEach(task => {
 
-            const startingHour = parseInt(task.time.split('h')[0]);
-            const startingMin = parseInt(task.time.split('h')[1]);
+            const startingHour = parseInt(task.startingTime.split('h')[0]);
+            const startingMin = parseInt(task.startingTime.split('h')[1]);
             let startingTime = startingHour * 60;
             if (!isNaN(startingMin)) {
                 startingTime += startingMin;
@@ -87,7 +86,7 @@ class Day {
 
             var timeDiv = document.createElement("div");
             timeDiv.className = "starting-time";
-            timeDiv.innerText = task.time;
+            timeDiv.innerText = task.startingTime;
             timeDiv.style.gridRowStart = startingSlot;
             timeDiv.style.gridRowEnd = endingSlot;
             timeDiv.style.gridColumnStart = 1;

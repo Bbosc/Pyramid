@@ -62,19 +62,22 @@ class Day {
             this.updateProgression();
         });
 
-        this.tasks.forEach(task => {
+        let totalTasks = this.tasks.concat(this.fillEmptySlots(this.tasks));
+        totalTasks.forEach(task => {
 
-            const startingHour = parseInt(task.startingTime.split('h')[0]);
-            const startingMin = parseInt(task.startingTime.split('h')[1]);
-            let startingTime = startingHour * 60;
-            if (!isNaN(startingMin)) {
-                startingTime += startingMin;
+            var descDiv = document.createElement("div");
+            descDiv.className = "task";
+
+            let startingTime;
+            if (task.title == '-') {
+                startingTime =  task.startingTime;
+                descDiv.classList.toggle("inactive-task");
+            } else {
+                startingTime = this.strToMinutes(task.startingTime);
             }
             const startingSlot = (startingTime - this.minHour)/this.minSlot + 1;
             const endingSlot = (startingTime - this.minHour + task.duration)/this.minSlot + 1;
 
-            var descDiv = document.createElement("div");
-            descDiv.className = "task";
             descDiv.style.gridRowStart = startingSlot;
             descDiv.style.gridRowEnd = endingSlot;
             descDiv.style.gridColumnStart = 2;
@@ -109,6 +112,47 @@ class Day {
 
     }
 
+    fillEmptySlots(tasks) {
+        tasks.sort((a, b) => {
+            if (this.strToMinutes(a.startingTime) > this.strToMinutes(b.startingTime)) return 1;
+            else return -1;
+        });
+        let emptySlots = [];
+        for (let i=0; i < tasks.length; i++) {
+            if (i === 0) {
+                if (this.strToMinutes(tasks[i].startingTime) - this.minHour) {
+                    let start = this.minHour;
+                    let end = this.strToMinutes(tasks[i].startingTime);
+                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                }
+            }
+            if (i < tasks.length-1) {
+                if (this.strToMinutes(tasks[i+1].startingTime) - this.strToMinutes(tasks[i].startingTime) + tasks[i].duration) {
+                    let start = this.strToMinutes(tasks[i].startingTime) + tasks[i].duration;
+                    let end = this.strToMinutes(tasks[i+1].startingTime);
+                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                }
+            }
+            if (i === tasks.length-1) {
+                if (this.maxHour - this.strToMinutes(tasks[i].startingTime)+tasks[i].duration) {
+                    let start = this.strToMinutes(tasks[i].startingTime) + tasks[i].duration;
+                    let end = this.maxHour;
+                    emptySlots.push({'title': '-', startingTime: start, 'duration': end-start});
+                }
+            }
+        }
+        return emptySlots;
+    }
+
+    strToMinutes(strTime) {
+        const startingHour = parseInt(strTime.split('h')[0]);
+        const startingMin = parseInt(strTime.split('h')[1]);
+        let startingTime = startingHour * 60;
+        if (!isNaN(startingMin)) {
+            startingTime += startingMin;
+        }
+        return startingTime;
+    }
 }
 
 setInterval(() => {
@@ -125,3 +169,21 @@ setInterval(() => {
     clock.textContent = hours + ":" + minutes;
 });
 
+
+class Task {
+    constructor(task) {
+        this.title = task.title;
+        this.startingTime = task.startingTime;
+        this.duration = task.duration;
+    }
+
+    strToMinutes(strTime) {
+        const startingHour = parseInt(strTime.split('h')[0]);
+        const startingMin = parseInt(strTime.split('h')[1]);
+        let startingTime = startingHour * 60;
+        if (!isNaN(startingMin)) {
+            startingTime += startingMin;
+        }
+        return startingTime;
+    }
+}

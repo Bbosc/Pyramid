@@ -61,10 +61,17 @@ html, body {
         border-radius: var(--corner-radius);
         transition: transform 0.3s ease-in-out;
     }
+    .inactive-task {
+        background-color: rgba(128, 128, 128, 0.7);
+    }
     .starting-time {
         background-color: rgba(255, 255, 255, 0.7);
         border: 2px solid black;
         border-radius: var(--corner-radius);
+    }
+    .task:hover {
+        cursor: pointer;
+        transform: scaleX(1.1);
     }
 
 }

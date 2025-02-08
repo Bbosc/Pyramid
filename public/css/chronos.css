@@ -154,3 +154,92 @@ html, body {
     }
 }
 
+#task-card {
+    position: absolute;
+    right: 15%;
+    top: 55%;
+    height: 200px;
+    width: 360px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid black;
+    border-radius: var(--corner-radius);
+    display: grid;
+    grid-template-columns: 1fr 20px 1fr;
+    grid-template-rows: 40% 1fr 1fr;
+    place-items: center;
+
+    .header-input {
+        justify-content: center;
+        text-align: center;
+        grid-column: 1 / span 3;
+        grid-row: 1;
+    }
+    .time-input:first-child {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    .time-duration {
+        grid-column: 2;
+        grid-row: 2;
+    }
+    .time-input:last-child {
+        grid-column: 3;
+        grid-row: 2;
+    }
+    button {
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 5px;
+        border-width: 0;
+        cursor: pointer;
+        padding-left: 16px;
+        padding-right: 16px;
+        text-transform: uppercase;
+        font-size: medium;
+        box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+    }
+    button:hover {
+        box-shadow: rgba(45, 35, 66, 0.4) 0 4px 8px, rgba(45, 35, 66, 0.3) 0 7px 13px -3px, #D6D6E7 0 -3px 0 inset;
+        transform: translateY(-2px);
+    }
+    button:first-child {
+        grid-column: 1;
+        grid-row: 3;
+    }
+    button:last-child {
+        grid-column: 2;
+        grid-row: 3;
+    }
+    input[type="text"] {
+        border: none;
+        padding: 5px;
+        background-color: transparent;
+        font-weight: bold;
+        font-size: large;
+        text-align: center;
+    }
+    input[type="text"]::placeholder {
+        color: black;
+    }
+    input[type="text"]:focus::placeholder {
+        color: gray;
+    }
+    input[type="number"] {
+        background-color: transparent;
+        text-align: center;
+        border: none;
+        width: 20px;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    input[type="time"] {
+        border: none;
+        border-top-left-radius: var(--corner-radius);
+        border-top-right-radius: var(--corner-radius);
+        border-bottom: 4px solid red;
+        padding: 5px;
+        background-color: transparent;
+    }
+}
+

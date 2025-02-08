@@ -52,6 +52,7 @@ class Day {
         setInterval(() => {
             this.updateProgression();
         });
+        this.displayDate();
         this.render();
     }
 
@@ -59,8 +60,15 @@ class Day {
         let activeTasks = this.tasks.map((task) => new ActiveTask(task));
         let totalTasks = activeTasks.concat(this.fillEmptySlots(activeTasks));
         totalTasks.forEach(task => {
-            task.create();
+            task.create(task.taskCard);
         });
+    }
+
+    displayDate() {
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        const formattedDate = today.toLocaleDateString(undefined, options);
+        document.getElementById("clock-wrapper").setAttribute('today-date', formattedDate);
     }
     
     updateProgression() {
@@ -88,14 +96,16 @@ class Day {
                 }
             }
             if (i < tasks.length-1) {
-                if (tasks[i+1].startingTime - tasks[i].startingTime + tasks[i].duration) {
+                if (tasks[i+1].startingTime - (tasks[i].startingTime + tasks[i].duration)) {
+                    console.log(tasks[i].title, tasks[i].duration, tasks[i].startingTime);
+                    console.log(tasks[i+1].title, tasks[i+1].startingTime);
                     let start = tasks[i].startingTime + tasks[i].duration;
                     let end = tasks[i+1].startingTime;
                     emptySlots.push(new InactiveTask({'startingTime': start, 'duration': end-start}));
                 }
             }
             if (i === tasks.length-1) {
-                if (this.maxHour - tasks[i].startingTime+tasks[i].duration) {
+                if (this.maxHour - (tasks[i].startingTime+tasks[i].duration)) {
                     let start = tasks[i].startingTime + tasks[i].duration;
                     let end = this.maxHour;
                     emptySlots.push(new InactiveTask({'startingTime': start, 'duration': end-start}));
@@ -134,10 +144,11 @@ class Task {
         return hours + "h" + minutes;
     }
 
-    create() {
+    create(taskCard) {
         const rowStart = (this.startingTime - this.minHour)/this.minSlot + 1;
         const rowEnd = (this.startingTime - this.minHour + this.duration)/this.minSlot + 1;
         let descDiv = this.createDiv(rowStart, rowEnd);
+        descDiv.onclick = function () { taskCard.fill() };
         let p = this.createParagraph();
         descDiv.appendChild(p);
         let timeDiv = this.createTimeSlot(rowStart, rowEnd);
@@ -172,12 +183,14 @@ class Task {
     }
 }
 
+
 class InactiveTask extends Task {
     constructor(task) {
         super(task);
         this.title = '-';
         this.startingTime = task.startingTime;
         this.startingTimeTxt = this.minutesToStr(task.startingTime);
+        this.taskCard = new TaskCard(this);
     }
     
     createDiv(rowStart, rowEnd) {
@@ -198,6 +211,30 @@ class ActiveTask extends Task {
         this.title = task.title;
         this.startingTime = this.strToMinutes(task.startingTime);
         this.startingTimeTxt = task.startingTime;
+        this.taskCard = new TaskCard(this);
+    }
+}
+
+class TaskCard {
+    constructor(task) {
+        this.title = task.title;
+        this.startingTime = task.minutesToStr(task.startingTime).replace('h',':');
+        this.endingTime = task.minutesToStr(task.startingTime + task.duration).replace('h', ':');
+        this.duration = task.duration;
+    }
+    
+    fill() {
+        document.getElementById("card-header").value = this.title;
+        let cardStart = document.getElementById("card-start");
+        let cardEnd = document.getElementById("card-end");
+        let cardDuration = document.getElementById("card-duration");
+        cardStart.value = this.startingTime;
+        cardStart.min = this.startingTime;
+        cardStart.max = cardEnd.value;
+        cardEnd.value = this.endingTime;
+        cardEnd.min = cardStart.value;
+        cardEnd.max = this.endingTime;
+        cardDuration.value = this.duration;
     }
 }
 
@@ -215,4 +252,12 @@ setInterval(() => {
     clock.textContent = hours + ":" + minutes;
 });
 
-
+function submitForm(action) {
+    const form = document.getElementById('task-card');
+    if (action === 'save') {
+        form.action = "/chronos/create";
+    } else if (action === 'delete') {
+        form.action = "/chronos/delete";
+    }
+    form.submit();
+}

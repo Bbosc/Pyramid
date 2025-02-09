@@ -35,8 +35,7 @@ html, body {
     align-items: center;
     position: relative;
     height: 100%;
-    background: url('../images/wallpaper.gif') no-repeat center center fixed;
-    background-size: cover;
+    background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
 }
 
 #day {
@@ -91,7 +90,7 @@ html, body {
 
 #clock-wrapper {
     position: absolute;
-    right: 15%;
+    left: 15%;
     top: 35%;
     height: 100px;
     width: 360px;
@@ -156,7 +155,7 @@ html, body {
 
 #task-card {
     position: absolute;
-    right: 15%;
+    left: 15%;
     top: 55%;
     height: 200px;
     width: 360px;

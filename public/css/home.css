@@ -44,7 +44,7 @@ html, body {
 }
 
 #pyramid {
-    background-image: url("../images/pyramid_wp.png");
+    background-image: url("../images/wallpapers/pyramid.png");
     background-size: cover;
     background-position: 50% 50%;
     opacity: 0.7;
@@ -57,7 +57,7 @@ html, body {
 }
 
 #chronos {
-    background-image: url("../images/hourglass.jpg");
+    background-image: url("../images/wallpapers/hourglass.jpg");
     background-size: cover;
     background-position: 50% 50%;
     opacity: 0.7;

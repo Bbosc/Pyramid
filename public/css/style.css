@@ -39,7 +39,7 @@ body, html {
 
 #home-image {
     position: relative;
-    background-image: url("../images/pyramid_wp.png");
+    background-image: url("../images/wallpapers/pyramid.png");
 
     filter: blur(5px);
     -webkit-filter: blur(5px);

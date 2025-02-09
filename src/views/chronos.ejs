@@ -26,22 +26,22 @@
                 </div>
             </div>
 
-            <form id="task-card" method="POST" action="/chronos/create">
+            <form id="task-card" method="POST">
                 <div class="header-input">
                     <label for="card-header"></label>
                     <input type="text" id="card-header" name="card-header" placeholder="New Task">
                 </div>
                 <div class="time-input">
                     <label for="card-start">Start: </label>
-                    <input type="time" id="card-start" name="card-start" min="08:00" max="21:00" value="10:00">
-                </div>
-                <div class="time-duration">
-                    <label for="card-duration"></label>
-                    <input type="number" id="card-duration" name="card-duration" readonly>
+                    <input type="time" id="card-start" name="card-start" min="08:00" max="21:00">
                 </div>
                 <div class="time-input">
                     <label for="card-end">End: </label>
-                    <input type="time" id="card-end" name="card-end" min="08:00" max="21:00" value="10:00">
+                    <input type="time" id="card-end" name="card-end" min="08:00" max="21:00">
+                </div>
+                <div style="display: none;">
+                    <label for="taskId"></label>
+                    <input type="text" id="taskId" name="taskId">
                 </div>
 
                 <button type="button" onclick="submitForm('delete')">Delete</button>

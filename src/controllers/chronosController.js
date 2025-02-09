@@ -23,13 +23,17 @@ exports.display = async (_req, res) => {
 };
 
 
-exports.createTask = async (req, res) => {
-    const task = new DailyTask(getTaskFromCard(req.body));
-    task.save()
+exports.saveTask = async (req, res) => {
+    const task = getTaskFromCard(req.body);
+    DailyTask.findByIdAndUpdate(req.body['taskId'], task)
     .then(() => {res.redirect('/chronos');})
-    .catch((err) => {
-        console.error("Error creating task: ", err);
-        res.status(500).send("Error creating item");
+    .catch(() => {
+        DailyTask(task).save()
+        .then(() => {res.redirect('/chronos');})
+        .catch((err) => {
+            console.error("Error creating task: ", err);
+            res.status(500).send("Error creating item");
+        })
     })
 };
 

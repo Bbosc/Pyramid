@@ -1,47 +1,3 @@
-const tasks = [
-    {
-        "title": "Wakey wakey - stretching",
-        "time": "8h",
-        "duration": 15 
-    },
-    {
-        "title": "Physical exercises",
-        "time": "8h15",
-        "duration": 45 
-    },
-    {
-        "title": "Breakfast",
-        "time": "9h",
-        "duration": 30 
-    },
-    {
-        "title": "Problem solving C++",
-        "time": "9h30",
-        "duration": 45 
-    },
-    {
-        "title": "German",
-        "time": "10h15",
-        "duration": 30 
-    },
-    {
-        "title": "Postulations",
-        "time": "10h45",
-        "duration": 60 
-    },
-    {
-        "title": "Chess",
-        "time": "14h15",
-        "duration": 45 
-    },
-    {
-        "title": "Deep Learning",
-        "time": "15h",
-        "duration": 90 
-    }
-]
-
-
 class Day {
     constructor(containerId, dailyTasks) {
         this.container = document.getElementById(containerId);
@@ -119,6 +75,7 @@ class Day {
 
 class Task {
     constructor(task) {
+        this.id = task._id;
         this.duration = task.duration;
         this.container = document.getElementById("day");
         this.minHour = 8 * 60;
@@ -217,6 +174,7 @@ class ActiveTask extends Task {
 
 class TaskCard {
     constructor(task) {
+        this.taskId = task.id;
         this.title = task.title;
         this.startingTime = task.minutesToStr(task.startingTime).replace('h',':');
         this.endingTime = task.minutesToStr(task.startingTime + task.duration).replace('h', ':');
@@ -225,16 +183,15 @@ class TaskCard {
     
     fill() {
         document.getElementById("card-header").value = this.title;
+        document.getElementById("taskId").value = this.taskId;
         let cardStart = document.getElementById("card-start");
         let cardEnd = document.getElementById("card-end");
-        let cardDuration = document.getElementById("card-duration");
         cardStart.value = this.startingTime;
         cardStart.min = this.startingTime;
         cardStart.max = cardEnd.value;
         cardEnd.value = this.endingTime;
         cardEnd.min = cardStart.value;
         cardEnd.max = this.endingTime;
-        cardDuration.value = this.duration;
     }
 }
 
@@ -255,7 +212,7 @@ setInterval(() => {
 function submitForm(action) {
     const form = document.getElementById('task-card');
     if (action === 'save') {
-        form.action = "/chronos/create";
+        form.action = "/chronos/save";
     } else if (action === 'delete') {
         form.action = "/chronos/delete";
     }

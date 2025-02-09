@@ -164,26 +164,22 @@ html, body {
     border: 2px solid black;
     border-radius: var(--corner-radius);
     display: grid;
-    grid-template-columns: 1fr 20px 1fr;
+    grid-template-columns: 1fr 1fr;
     grid-template-rows: 40% 1fr 1fr;
     place-items: center;
 
     .header-input {
         justify-content: center;
         text-align: center;
-        grid-column: 1 / span 3;
+        grid-column: 1 / span 2;
         grid-row: 1;
     }
     .time-input:first-child {
         grid-column: 1;
         grid-row: 2;
     }
-    .time-duration {
-        grid-column: 2;
-        grid-row: 2;
-    }
     .time-input:last-child {
-        grid-column: 3;
+        grid-column: 2;
         grid-row: 2;
     }
     button {
@@ -223,15 +219,6 @@ html, body {
     }
     input[type="text"]:focus::placeholder {
         color: gray;
-    }
-    input[type="number"] {
-        background-color: transparent;
-        text-align: center;
-        border: none;
-        width: 20px;
-    }
-    input[type="number"] {
-        -moz-appearance: textfield;
     }
     input[type="time"] {
         border: none;

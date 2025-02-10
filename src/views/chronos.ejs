@@ -9,47 +9,44 @@
         <script type="text/javascript" src="/js/chronos.js"></script>
     </head>
 
-    <body>
+    <body id="chronos">
 
         <div class="home-button">
             <a href="/"></a>
         </div>
 
-        <div id="day-container">
-            <div id="clock-wrapper">
-                <div id="clock-display">
-                    <div id="clock"></div>
-                </div>
+        <div id="clock-wrapper">
+            <div id="clock-display">
+                <div id="clock"></div>
             </div>
-            <div id="day">
-                <div id="day-progression">
-                </div>
-            </div>
-
-            <form id="task-card" method="POST">
-                <div class="header-input">
-                    <label for="card-header"></label>
-                    <input type="text" id="card-header" name="card-header" placeholder="New Task">
-                </div>
-                <div class="time-input">
-                    <label for="card-start">Start: </label>
-                    <input type="time" id="card-start" name="card-start" min="08:00" max="21:00">
-                </div>
-                <div class="time-input">
-                    <label for="card-end">End: </label>
-                    <input type="time" id="card-end" name="card-end" min="08:00" max="21:00">
-                </div>
-                <div style="display: none;">
-                    <label for="taskId"></label>
-                    <input type="text" id="taskId" name="taskId">
-                </div>
-
-                <button type="button" onclick="submitForm('delete')">Delete</button>
-                <button type="button" onclick="submitForm('save')">Save</button>
-
-            </form>
-
         </div>
+
+        <div id="day">
+            <div id="day-progression">
+            </div>
+        </div>
+
+        <form id="task-card" method="POST">
+            <div class="header-input">
+                <label for="card-header"></label>
+                <input type="text" id="card-header" name="card-header" placeholder="New Task">
+            </div>
+            <div class="time-input">
+                <label for="card-start">Start: </label>
+                <input type="time" id="card-start" name="card-start" min="08:00" max="21:00">
+            </div>
+            <div class="time-input">
+                <label for="card-end">End: </label>
+                <input type="time" id="card-end" name="card-end" min="08:00" max="21:00">
+            </div>
+            <div style="display: none;">
+                <label for="taskId"></label>
+                <input type="text" id="taskId" name="taskId">
+            </div>
+
+            <button type="button" onclick="submitForm('delete')">Delete</button>
+            <button type="button" onclick="submitForm('save')">Save</button>
+        </form>
 
         <script>
             const dailyTasks = <%-JSON.stringify(dailyTasks)%>;

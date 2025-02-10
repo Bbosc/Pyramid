@@ -38,6 +38,9 @@ body::before {
     background-size: cover;
 }
 
+#chronos::before {
+    background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
+}
 /* HOME BUTTON */
 
 .home-button {
@@ -71,14 +74,6 @@ body::before {
     width: 100%;
 }
 
-#pyramid-background {
-    background: url("../images/wallpapers/pyramid.png") no-repeat center center fixed;
-    background-size: cover;
-}
-
-#chronos-background {
-    background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
-}
 
 .hidden {
     display: none;

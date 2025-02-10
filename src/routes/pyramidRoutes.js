@@ -1,11 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const taskController = require("../controllers/pyramidController");
+const pyramidController = require("../controllers/pyramidController");
 
-router.post('/save', taskController.saveTask);
-router.post('/delete', taskController.deleteTask);
-router.post('/complete', taskController.completeTask);
+router.post('/save', pyramidController.saveTask);
+router.post('/delete', pyramidController.deleteTask);
+router.post('/complete', pyramidController.completeTask);
 // get
-router.get('/', taskController.getAllTasks);
+router.get('/', pyramidController.getAllTasks);
 
 module.exports = router;

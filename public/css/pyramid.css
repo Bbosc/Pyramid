@@ -1,0 +1,300 @@
+@import "/css/style.css";
+/* Top section */
+
+#new-task {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    top: 5%;
+    left: 41%;
+    height: 15%;
+    margin: auto;
+    h1 {
+        color: white;
+    }
+    button {
+        border: none;
+        color: white;
+        background-color: transparent;
+        margin-left: 10px;
+    }
+    button:hover {
+        cursor: pointer;
+        color: var(--gold);
+    }
+}
+
+/* Container of task tiers */
+
+#tasks-container {
+    position: absolute;
+    top: 30%;
+    left: 2%;
+    height: 69%;
+    width: 96%;
+    border-radius: var(--corner-radius);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    .tier-container {
+        height: 100%;
+        background-color: var(--blue);
+        border: 2px solid var(--transparent-highlight);
+        border-radius: var(--corner-radius);
+        h2 {
+            position: absolute;
+            top: -50px;
+            color: white;
+        }
+        .task {
+            display: grid;
+            grid-template-columns: 70% repeat(2, 1fr);
+            p {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+
+
+/* Forms */
+
+.task-form {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 300px;
+    height: 500px;
+    border: 2px solid var(--gold);
+    border-radius: var(--corner-radius);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    background-color: var(--white-transparent);
+    padding: var(--corner-radius);
+    gap: var(--corner-radius);
+
+    > *:not(button) {
+        grid-column: 1 / span 2;
+    }
+
+    .header-input {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        input[type="text"] {
+            border: none;
+            border-bottom: 1px solid black;
+            background-color: transparent;
+            font-weight: bold;
+            font-size: large;
+        }
+    }
+    .text-input {
+        textarea {
+            height: 80%;
+            width: 100%;
+            border: 1px solid black;
+            border-radius: var(--corner-radius);
+            background-color: transparent;
+        }
+    }
+    .number-input {
+        input[type="number"] {
+            border: none;
+            background-color: transparent;
+        }
+    }
+    .date-input {
+        input[type="date"] {
+            border: none;
+            background-color: transparent;
+        }
+    }
+
+    button:first-child {
+        grid-column: 1;
+        grid-row: -1;
+    }
+    button:last-child {
+        grid-column: 2;
+        grid-row: -1;
+    }
+}
+
+.form-btn {
+    width: 100px;
+    height: 40px;
+    font-size: large;
+    float: right;
+    border: 1px solid;
+    border-radius: var(--cornerRadius);
+    color: black;
+    background-color: transparent;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.form-btn:hover {
+    cursor: pointer;
+    color: var(--pDarkBlue);
+}
+
+
+.taskForm {
+    background-color: rgba(255, 255, 255, 0.745);
+    border-radius: var(--cornerRadius);
+    padding: var(--cornerRadius);
+    position: absolute;
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+.form-input input{
+    width: 100%;
+    height: 30px;
+    border: 1px solid;
+    border-radius: calc(var(--cornerRadius)/2);
+}
+
+
+.taskForm input::placeholder {
+    font-family: "Lucida Console", monospace;
+}
+
+
+.inactive-bg {
+    filter: blur(10px);
+    pointer-events: none;
+}
+
+
+
+
+.column {
+    float: left;
+    width: 19%;
+    height: 100%;
+    background-color: var(--blue);
+    border: 2px solid var(--transarent-higlight);
+    border-radius: var(--corner-radius);
+    margin-right: 5px;
+}
+
+.task {
+    display: grid;
+    grid-template-columns: 85% 10%;
+    color: var(--gold);
+    background-color: var(--dark-blue);
+    padding: 0;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    margin-left: 2px;
+}
+
+.task:hover {
+    cursor: pointer;
+    background-color: var(--transarent-higlight);
+    font-weight: bold;
+}
+
+.task button {
+    border: none;
+    color: white;
+    background-color: transparent;
+    margin-left: 10px
+}
+
+.task button:hover {
+    cursor: pointer;
+    color: var(--gold);
+}
+
+/* Filters */
+
+#filters {
+    position: absolute;
+    top: 20%;
+    left: 2%;
+}
+
+#filters .filter {
+    display: inline;
+    margin-right: 20px;
+    background-color: transparent;
+    color: white;
+}
+
+#filters .filter input {
+    border: none;
+}
+
+/* Views */
+
+#views {
+    position: absolute;
+    top: 20%;
+    right: 2%;
+}
+
+#views .view {
+    display: inline;
+    margin-right: 20px;
+    background-color: transparent;
+    color: white;
+}
+
+#views .view input {
+    border: none;
+}
+
+
+
+/* Flyer */
+#task-flyer {
+    background-color: rgba(255, 255, 255, 0.745);
+    border-radius: var(--cornerRadius);
+    padding: var(--cornerRadius);
+    position: absolute;
+    padding: 50px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    width: 60%;
+
+    -webkit-animation: fadeIn 1s;
+    animation: fadeIn 1s;
+}
+
+#task-flyer h2 {
+    width: 100%;
+}
+
+#task-flyer span {
+    display: block;
+    padding: var(--cornerRadius);
+}
+
+#task-flyer .deadline h4 {
+    text-decoration: underline; 
+}
+
+#task-flyer .deadline span {
+    display: table;
+    margin: 0 auto;
+    color: red;
+}
+

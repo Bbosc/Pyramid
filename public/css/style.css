@@ -1,26 +1,52 @@
-:root{
-    --pBlue: #08385178; 
-    --pDarkBlue: #083851bd; 
-    --pGold: #e8c998;
-    --fontColor: #92e8e3;
-    --transarentHiglight: #92e8e47e;
-    --cornerRadius: 15px;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 
-body, html {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    font-family: "Lucida Console", monospace;
+:root {
+    --corner-radius: 10px;
+    --blue: #08385178; 
+    --dark-blue: #083851bd; 
+    --gold: #e8c998;
+    --black: black;
+    --font-color: #92e8e3;
+    --transparent-highlight: #92e8e47e;
+    --white-transparent: rgba(255, 255, 255, 0.7);
 }
 
+html, body {
+    position: relative;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Roboto", serif;
+    font-optical-sizing: auto;
+    font-variation-settings "wdth" 100;
+}
+
+body::before {
+    --blur: blur(5px);
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    filter: var(--blur);
+}
+
+#pyramid::before {
+    background-image: url("../images/wallpapers/pyramid.png");
+    background-size: cover;
+}
+
+/* HOME BUTTON */
+
 .home-button {
+    --side-length: 100px;
     position: absolute;
     top: 50px;
     left: 50px;
-    width: 100px;
-    height: 100px;
+    width: var(--side-length);
+    height: var(--side-length);
     background-image: url('../images/home.gif');
     background-size: cover;
     z-index: 2;
@@ -31,242 +57,38 @@ body, html {
         width: 100%;
     }
 }
-
 .home-button:hover {
     transform: scale(1.2);
 }
 
+/* BACKGROUND IMAGE */
 
-#home-image {
-    position: relative;
-    background-image: url("../images/wallpapers/pyramid.png");
-
-    filter: blur(5px);
-    -webkit-filter: blur(5px);
-
+.background-image {
+    --blur: blur(5px);
+    filter: var(--blur);
+    -webkit-filter: var(--blur);
     height: 100%;
     width: 100%;
+}
 
-    background-position: center;
-    background-repeat: no-repeat;
+#pyramid-background {
+    background: url("../images/wallpapers/pyramid.png") no-repeat center center fixed;
     background-size: cover;
 }
 
-/* Top section */
-
-#new-task {
-    position: absolute;
-    display: flex;
-    align-items: center;
-    top: 5%;
-    left: 41%;
-    height: 15%;
-    margin: auto;
+#chronos-background {
+    background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
 }
 
-#new-task h1 {
-    color: white;
+.hidden {
+    display: none;
 }
 
-#new-task button {
-    border: none;
-    color: white;
-    background-color: transparent;
-    margin-left: 10px;
+.reveal {
+    display: visible;
 }
 
-#new-task button:hover {
-    cursor: pointer;
-    color: var(--pGold);
-}
-
-/* Filters */
-
-#filters {
-    position: absolute;
-    top: 20%;
-    left: 2%;
-}
-
-#filters .filter {
-    display: inline;
-    margin-right: 20px;
-    background-color: transparent;
-    color: white;
-}
-
-#filters .filter input {
-    border: none;
-}
-
-/* Views */
-
-#views {
-    position: absolute;
-    top: 20%;
-    right: 2%;
-}
-
-#views .view {
-    display: inline;
-    margin-right: 20px;
-    background-color: transparent;
-    color: white;
-}
-
-#views .view input {
-    border: none;
-}
-
-/* Container of task tiers */
-
-
-#tasks-container {
-    position: absolute;
-    top: 30%;
-    left: 2%;
-    height: 69%;
-    width: 96%;
-    border-radius: var(--cornerRadius);
-}
-
-.inactive-bg {
-    filter: blur(10px);
-    pointer-events: none;
-}
-
-#tasks-container h2 {
-    position: absolute;
-    top: -50px;
-    color: white;
-}
-
-.column {
-    float: left;
-    width: 19%;
-    height: 100%;
-    background-color: var(--pBlue);
-    border: 2px solid var(--transarentHiglight);
-    border-radius: var(--cornerRadius);
-    margin-right: 5px;
-}
-
-.task {
-    display: grid;
-    /*grid-template-columns: 75% 10% 10%;*/
-    grid-template-columns: 85% 10%;
-    color: var(--pGold);
-    background-color: var(--pDarkBlue);
-    padding: 0;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-}
-
-.task:hover {
-    cursor: pointer;
-    background-color: var(--transarentHiglight);
-    font-weight: bold;
-}
-
-.task button {
-    border: none;
-    color: white;
-    background-color: transparent;
-    margin-left: 10px
-}
-
-.task button:hover {
-    cursor: pointer;
-    color: var(--pGold);
-}
-
-/* Forms */
-
-.form-btn {
-    width: 100px;
-    height: 40px;
-    font-size: large;
-    float: right;
-    border: 1px solid;
-    border-radius: var(--cornerRadius);
-    color: black;
-    background-color: transparent;
-    margin-left: 10px;
-    margin-top: 10px;
-}
-
-.form-btn:hover {
-    cursor: pointer;
-    color: var(--pDarkBlue);
-}
-
-
-.taskForm {
-    background-color: rgba(255, 255, 255, 0.745);
-    border-radius: var(--cornerRadius);
-    padding: var(--cornerRadius);
-    position: absolute;
-    padding: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-.form-input input{
-    width: 100%;
-    height: 30px;
-    border: 1px solid;
-    border-radius: calc(var(--cornerRadius)/2);
-}
-
-
-.taskForm input::placeholder {
-    font-family: "Lucida Console", monospace;
-}
-
-
-/* Flyer */
-#task-flyer {
-    background-color: rgba(255, 255, 255, 0.745);
-    border-radius: var(--cornerRadius);
-    padding: var(--cornerRadius);
-    position: absolute;
-    padding: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    width: 60%;
-
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-#task-flyer h2 {
-    width: 100%;
-}
-
-#task-flyer span {
-    display: block;
-    padding: var(--cornerRadius);
-}
-
-#task-flyer .deadline h4 {
-    text-decoration: underline; 
-}
-
-#task-flyer .deadline span {
-    display: table;
-    margin: 0 auto;
-    color: red;
-}
-
-/* Animations */
+/* ANIMATIONS */
 
 @-webkit-keyframes fadeIn {
     from {opacity: 0;}

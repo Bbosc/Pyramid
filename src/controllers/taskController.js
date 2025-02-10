@@ -27,7 +27,7 @@ exports.saveTask = async (req, res) => {
 exports.getAllTasks = async (req, res) => {
   try {
     const tasks = await Task.find();
-    res.render("index", {tasks});
+    res.render("pyramid", {tasks});
   } catch (error) {
     res.status(500).json({error: error.message});
   }

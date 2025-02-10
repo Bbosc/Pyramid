@@ -6,18 +6,19 @@
     <title>Pyramid</title>
     <link rel="icon" type="image/x-icon" href="/images/pyramid.ico">
     <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/css/pyramid.css">
     <link rel="stylesheet" type="text/css" href="/css/calendar.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script type="text/javascript" src="/js/displayTasks.js"></script>
     <script type="text/javascript" src="/js/form.js"></script>
     <script type="text/javascript" src="/js/calendar.js"></script>
 </head>
-<body>
+<body id="pyramid">
+
     <div class="home-button">
         <a href="/"></a>
     </div>
 
-    <div id="home-image"></div>
 
     <div id="new-task" class="inactive-bg">
         <h1>Add a new task...</h1>
@@ -26,7 +27,7 @@
         </button>
     </div>
 
-    <div id=filters>
+    <div id="filters">
           <div class="filter">
               <input type="checkbox" id="filterCompleted" name="filter-completed"/>
               <label for="filterCompleted">completed</label>

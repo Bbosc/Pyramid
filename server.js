@@ -2,7 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 require('dotenv').config({path: __dirname+"/./src/config/.env"});
-const taskRoutes = require("./src/routes/taskRoutes");
+const pyramidRoutes = require("./src/routes/pyramidRoutes");
 const chronosRoutes = require("./src/routes/chronosRoutes");
 
 
@@ -26,7 +26,7 @@ app.get('/', function (_req, res) {
   res.render('home');
 });
 
-app.use("/tasks", taskRoutes);
+app.use("/pyramid", pyramidRoutes);
 app.use("/chronos", chronosRoutes);
 
 app.listen(port, () => {

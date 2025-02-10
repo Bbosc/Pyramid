@@ -30,17 +30,18 @@ class Task {
         div.className = "task";
         let p = document.createElement("p");
         p.innerText = this.name;
-        p.onclick = function () {console.log(`clicked on ${task._id}`);};
+        p.onclick = function () { toggleForm(task); };
         let validateBtn = document.createElement("button");
         validateBtn.type = "button";
         validateBtn.innerText = "✔";
+        validateBtn.onclick = function () { completeTask(task); };
         let deleteBtn = document.createElement("button");
         deleteBtn.type = "button";
         deleteBtn.innerText = "🗑";
+        deleteBtn.onclick = function () { deleteTask(task); };
         div.appendChild(p);
         div.appendChild(validateBtn);
         div.appendChild(deleteBtn);
-        div.onclick = function () { toggleForm(task); };
         return div;
     }
 
@@ -49,17 +50,52 @@ class Task {
 function toggleForm(task) {
     let form = document.querySelector('.task-form');
     form.classList.toggle("hidden");
-    document.getElementById("task-name").value = task.name;
-    document.getElementById("task-desc").value = task.description;
-    document.getElementById("task-tier").value = task.tier;
-    document.getElementById("task-deadline").value = task.deadline.toString().split('T')[0];
-}
-
-
-function submitForm(action) {
-    const form = document.getElementById('task-form');
-    if (action === 'save') {
-        form.action = "/tasks/save";
+    document.getElementById("tasks-container").classList.toggle("blurred");
+    if (typeof task !== "undefined") {
+        document.getElementById("taskId").value = task._id;
+        document.getElementById("task-name").value = task.name;
+        document.getElementById("task-desc").value = task.description;
+        document.getElementById("task-tier").value = task.tier;
+        document.getElementById("task-deadline").value = task.deadline.toString().split('T')[0];
+    } else {
+        document.getElementById("task-name").value = '';
+        document.getElementById("task-desc").value = '';
+        document.getElementById("task-tier").value = '';
+        document.getElementById("task-deadline").value = '';
     }
-    form.submit();
 }
+
+function deleteTask(task) {
+    fetch(window.location.href + "/delete", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({taskId: task._id})
+    })
+    .then(res => {window.location.reload();})
+    .catch(err => {console.error(err);});
+}
+
+function completeTask(task) {
+    fetch(window.location.href + "/complete", {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify({taskId: task._id})
+    })
+    .then(res => {window.location.reload();})
+    .catch(err => {console.error(err);});
+}
+
+
+
+window.addEventListener("keydown", function (event) {
+    let form = document.querySelector('.task-form');
+    if (event.key === "Escape") {
+        if (!form.classList.contains("hidden")) {
+            toggleForm();
+        }
+    }
+})

@@ -15,8 +15,7 @@
         <div class="home-button"><a href="/"></a></div>
 
         <div id="new-task">
-            <h1>Add a new task...</h1>
-            <button class="btn" name="add" onclick="createTaskForm()"> +</button>
+            <h1 onclick="toggleForm()">Add a new task ➜</h1>
         </div>
 
         <div id="tasks-container">
@@ -27,7 +26,7 @@
             <div class="tier-container"><h2>Tier 0</h2></div>
         </div>
 
-        <form class="task-form hidden" method="POST">
+        <form class="task-form hidden" method="POST" action="/pyramid/save">
             <div style="display: none;">
                 <label for="taskId"></label>
                 <input type="text" id="taskId" name="taskId">
@@ -37,7 +36,7 @@
                 <input type="text" id="task-name" name="task-name" placeholder="Name">
             </div>
             <div class="text-input">
-                <textarea id="task-desc" placeholder="Description..."></textarea>
+                <textarea name="task-desc" id="task-desc" placeholder="Description..."></textarea>
             </div>
             <div class="number-input">
                 <label for="task-tier">Tier: </label>
@@ -49,7 +48,7 @@
             </div>
 
             <button type="button" onclick="toggleForm()">Cancel</button>
-            <button type="button" onclick="submitForm('save')">Save</button>
+            <button type="submit">Save</button>
 
         </form>
 

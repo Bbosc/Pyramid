@@ -12,15 +12,10 @@
     h1 {
         color: white;
     }
-    button {
-        border: none;
-        color: white;
-        background-color: transparent;
-        margin-left: 10px;
-    }
-    button:hover {
+    h1:hover {
         cursor: pointer;
         color: var(--gold);
+        text-decoration: underline;
     }
 }
 
@@ -41,6 +36,7 @@
         background-color: var(--blue);
         border: 2px solid var(--transparent-highlight);
         border-radius: var(--corner-radius);
+        overflow-y: scroll;
         h2 {
             position: absolute;
             top: -50px;
@@ -49,14 +45,35 @@
         .task {
             display: grid;
             grid-template-columns: 70% repeat(2, 1fr);
+            background-color: var(--dark-blue);
+            margin-bottom: 2px;
             p {
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
                 width: 100%;
                 height: 100%;
+                color: var(--gold);
+                margin-left: 5px;
+            }
+
+            button {
+                border: none;
+                color: white;
+                background-color: transparent;
+            }
+            button:hover {
+                cursor: pointer;
+                color: var(--gold);
             }
         }
+
+        .task:hover {
+            cursor: pointer;
+            background-color: var(--transarent-higlight);
+            font-weight: bold;
+        }
+
     }
 }
 
@@ -128,173 +145,5 @@
     }
 }
 
-.form-btn {
-    width: 100px;
-    height: 40px;
-    font-size: large;
-    float: right;
-    border: 1px solid;
-    border-radius: var(--cornerRadius);
-    color: black;
-    background-color: transparent;
-    margin-left: 10px;
-    margin-top: 10px;
-}
 
-.form-btn:hover {
-    cursor: pointer;
-    color: var(--pDarkBlue);
-}
-
-
-.taskForm {
-    background-color: rgba(255, 255, 255, 0.745);
-    border-radius: var(--cornerRadius);
-    padding: var(--cornerRadius);
-    position: absolute;
-    padding: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-.form-input input{
-    width: 100%;
-    height: 30px;
-    border: 1px solid;
-    border-radius: calc(var(--cornerRadius)/2);
-}
-
-
-.taskForm input::placeholder {
-    font-family: "Lucida Console", monospace;
-}
-
-
-.inactive-bg {
-    filter: blur(10px);
-    pointer-events: none;
-}
-
-
-
-
-.column {
-    float: left;
-    width: 19%;
-    height: 100%;
-    background-color: var(--blue);
-    border: 2px solid var(--transarent-higlight);
-    border-radius: var(--corner-radius);
-    margin-right: 5px;
-}
-
-.task {
-    display: grid;
-    grid-template-columns: 85% 10%;
-    color: var(--gold);
-    background-color: var(--dark-blue);
-    padding: 0;
-    margin-top: 2px;
-    margin-bottom: 2px;
-    margin-left: 2px;
-}
-
-.task:hover {
-    cursor: pointer;
-    background-color: var(--transarent-higlight);
-    font-weight: bold;
-}
-
-.task button {
-    border: none;
-    color: white;
-    background-color: transparent;
-    margin-left: 10px
-}
-
-.task button:hover {
-    cursor: pointer;
-    color: var(--gold);
-}
-
-/* Filters */
-
-#filters {
-    position: absolute;
-    top: 20%;
-    left: 2%;
-}
-
-#filters .filter {
-    display: inline;
-    margin-right: 20px;
-    background-color: transparent;
-    color: white;
-}
-
-#filters .filter input {
-    border: none;
-}
-
-/* Views */
-
-#views {
-    position: absolute;
-    top: 20%;
-    right: 2%;
-}
-
-#views .view {
-    display: inline;
-    margin-right: 20px;
-    background-color: transparent;
-    color: white;
-}
-
-#views .view input {
-    border: none;
-}
-
-
-
-/* Flyer */
-#task-flyer {
-    background-color: rgba(255, 255, 255, 0.745);
-    border-radius: var(--cornerRadius);
-    padding: var(--cornerRadius);
-    position: absolute;
-    padding: 50px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1;
-    width: 60%;
-
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
-}
-
-#task-flyer h2 {
-    width: 100%;
-}
-
-#task-flyer span {
-    display: block;
-    padding: var(--cornerRadius);
-}
-
-#task-flyer .deadline h4 {
-    text-decoration: underline; 
-}
-
-#task-flyer .deadline span {
-    display: table;
-    margin: 0 auto;
-    color: red;
-}
 

@@ -88,6 +88,11 @@ body::before {
     display: visible;
 }
 
+.blurred {
+    filter: blur(10px);
+    pointer-events: none;
+}
+
 /* ANIMATIONS */
 
 @-webkit-keyframes fadeIn {

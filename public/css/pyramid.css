@@ -6,7 +6,8 @@
     display: flex;
     align-items: center;
     top: 5%;
-    left: 41%;
+    left: 50%;
+    transform: translateX(-50%);
     height: 15%;
     margin: auto;
     h1 {
@@ -73,7 +74,20 @@
             background-color: var(--transarent-higlight);
             font-weight: bold;
         }
-
+    }
+    .private-container::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 19%;
+        backdrop-filter: blur(15px);
+    }
+    .private-container:hover::before {
+        cursor: pointer;
+        background-image: url('../images/icons/eye_private.webp');
+        background-size: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
     }
 }
 

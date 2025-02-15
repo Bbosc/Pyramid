@@ -89,8 +89,6 @@ function completeTask(task) {
     .catch(err => {console.error(err);});
 }
 
-
-
 window.addEventListener("keydown", function (event) {
     let form = document.querySelector('.task-form');
     if (event.key === "Escape") {

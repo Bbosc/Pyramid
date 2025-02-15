@@ -22,8 +22,8 @@
             <div class="tier-container"><h2>Tier 4</h2></div>
             <div class="tier-container"><h2>Tier 3</h2></div>
             <div class="tier-container"><h2>Tier 2</h2></div>
-            <div class="tier-container"><h2>Tier 1</h2></div>
-            <div class="tier-container"><h2>Tier 0</h2></div>
+            <div class="tier-container private-container"><h2>Tier 1</h2></div>
+            <div class="tier-container private-container"><h2>Tier 0</h2></div>
         </div>
 
         <form class="task-form hidden" method="POST" action="/pyramid/save">
@@ -40,7 +40,7 @@
             </div>
             <div class="number-input">
                 <label for="task-tier">Tier: </label>
-                <input type="number" id="task-tier" name="task-tier" placeholder=4 min=0 max=4>
+                <input type="number" id="task-tier" name="task-tier" value=4 min=0 max=4>
             </div>
             <div class="date-input">
                 <label for="task-deadline">Deadline: </label>
@@ -56,6 +56,16 @@
         <script>
             const allTasks = <%-JSON.stringify(tasks)%>;
             const pyramid = new Pyramid(allTasks);
+
+            const private_containers = document.querySelectorAll(".private-container");
+            private_containers.forEach(div => {
+                div.addEventListener('mousedown', function() {
+                    this.classList.toggle("private-container");
+                });
+                div.addEventListener('mouseup', function() {
+                    this.classList.toggle("private-container");
+                });
+            });
         </script>
         
 

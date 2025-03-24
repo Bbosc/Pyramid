@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require('dotenv').config({path: __dirname+"/./src/config/.env"});
 const pyramidRoutes = require("./src/routes/pyramidRoutes");
 const chronosRoutes = require("./src/routes/chronosRoutes");
+const templateRoutes = require("./src/routes/templateRoutes");
 
 
 const app = express();
@@ -28,6 +29,7 @@ app.get('/', function (_req, res) {
 
 app.use("/pyramid", pyramidRoutes);
 app.use("/chronos", chronosRoutes);
+app.use("/template", templateRoutes);
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

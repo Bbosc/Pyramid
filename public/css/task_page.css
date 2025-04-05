@@ -1,0 +1,72 @@
+.task-page {
+    width: 0;
+    height: 100%;
+    position: absolute;
+    border: 2px solid green;
+    right: 0;
+    top: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: width 1s ease;
+        backdrop-filter: blur(15px);
+}
+
+.active {
+    width: 40%;
+}
+
+.task-page form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    .task-title {
+        input {
+            width: 100%;
+            height: 5rem;
+            font-size: 4rem;
+            font-weight: bold;
+        }
+        input::placeholder {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+    }
+    .task-description {
+        textarea {
+            width: 100%;
+            height: 10rem;
+            border-radius: 5px;
+        }
+    }
+}
+
+.task-page {
+    button {
+      padding: 1.3em 3em;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      font-weight: 500;
+      color: #000;
+      background-color: #fff;
+      border: none;
+      border-radius: 45px;
+      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease 0s;
+      cursor: pointer;
+      outline: none;
+    }
+
+    button:hover {
+      background-color: #23c483;
+      box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
+      color: #fff;
+      transform: translateY(-7px);
+    }
+
+    button:active {
+      transform: translateY(-1px);
+    }
+
+
+}

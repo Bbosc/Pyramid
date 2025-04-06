@@ -9,114 +9,102 @@
         <link rel="stylesheet" type="text/css" href="/css/task_page.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script type="text/javascript" src="/js/task.js"></script>
+        <script type="text/javascript" src="/js/task-page.js"></script>
     </head>
 
     <body>
 
+        <div class="menu-bar">
+            <a href="/">home</a>
+            <a href="/pyramid">pyramid</a>
+            <a href="/chronos">chronos</a>
+            <a href="">health</a>
+        </div>
+
         <div class="template-layout">
 
             <div class="calendar-zone">
-                <a href="#"><img src="" alt="calendar icon"></a>
+                <a href="#"><img src="/images/icons/calendar.png" alt="calendar icon"></a>
             </div>
             <div class="stats-zone">
                 <progress value="16" max="100"></progress>
                 <progress value="92" max="100"></progress>
             </div>
             <div class="top-middle-zone">
-                <h1 onclick="toggleTaskSpace()">Add a new task ➜</h1>
             </div>
-            <div class="home-button-zone">
-                <a href="pyramid/"><img src="" alt="pyramid icon"></a>
+            <div class="top-right-zone">
+                <button type="button" onclick="toggleTaskSpace()">Add a new task</button>
             </div>
             <div class="bottom-zone">
-                <div class="tier">
-                    <div class="task">
-                        <p>task name</p>
-                        <p>another one</p>
-                        <p>another one</p>
+                <div class="tier"></div>
+                <div class="tier"></div>
+                <div class="tier"></div>
+                <div class="tier"></div>
+            </div>
+
+
+            <script>
+                const allTasks = <%-JSON.stringify(healthTasks)%>;
+                const category = new Category(allTasks);
+            </script>
+
+
+            <div class="task-page">
+
+                <form method="POST" action="/health/save">
+                    <div style="display: none;">
+                        <label for="form-id"></label>
+                        <input type="text" id="form-id" name="form-id">
                     </div>
-                </div>
+                    <div class="task-title">
+                        <label for="form-title"></label>
+                        <input type="text" id="form-title" name="form-title" placeholder="Title">
+                    </div>
+                    <div class="task-description">
+                        <textarea id="form-description" name="form-description" placeholder="Description..."></textarea>
+                    </div>
+                    <div class="task-tier">
+                        <label for="form-tier">Tier: </label>
+                        <input type="number" id="form-tier" name="form-tier" value=4 min=0 max=4>
+                    </div>
+                    <div class="task-priority">
+                        <label for="form-priority">Priority: </label>
+                        <input type="text" id="form-priority" name="form-priority" value='low'>
+                    </div>
+                    <div class="task-deadline">
+                        <label for="form-deadline">Expires on: </label>
+                        <input type="date" id="form-deadline" name="form-deadline">
+                    </div>
+                    <div class="task-parent">
+                        <label for="form-parent">Parent:</label>
+                        <input type="text" id="form-parent" name="form-parent" placeholder="Add a parent here...">
+                        <ul class="parent-list"></ul>
+                    </div>
+
+                    <div>
+                        <button type="submit">Save</button>
+                        <button type="button" onclick="toggleTaskSpace()">Cancel</button>
+                    </div>
+
+                    <script>
+                        let sortedTasksTitles = allTasks.map(task => task.title).sort();
+
+                        let input = document.getElementById("form-parent");
+                        input.addEventListener("keyup", () => {
+                            autoSuggest(input, sortedTasksTitles);
+                        });
+                        function displayNames(value) {
+                            input.value = value;
+                        }
+                    </script>
+
+                </form>
+                
             </div>
             
         </div>
 
-        <script>
-            const allTasks = <%-JSON.stringify(healthTasks)%>;
-            const category = new Category(allTasks);
-        </script>
 
-        <div class="task-page active">
-
-            <form method="POST" action="/health/save">
-                <div style="display: none;">
-                    <label for="form-id"></label>
-                    <input type="text" id="form-id" name="form-id">
-                </div>
-                <div class="task-title">
-                    <label for="form-title"></label>
-                    <input type="text" id="form-title" name="form-title" placeholder="Title">
-                </div>
-                <div class="task-description">
-                    <textarea id="form-description" name="form-description" placeholder="Description..."></textarea>
-                </div>
-                <div class="task-tier">
-                    <label for="form-tier">Tier: </label>
-                    <input type="number" id="form-tier" name="form-tier" value=4 min=0 max=4>
-                </div>
-                <div class="task-priority">
-                    <label for="form-priority">Priority: </label>
-                    <input type="text" id="form-priority" name="form-priority" value='low'>
-                </div>
-                <div class="task-deadline">
-                    <label for="form-deadline">Expires on: </label>
-                    <input type="date" id="form-deadline" name="form-deadline">
-                </div>
-                <div class="task-parent">
-                    <label for="form-parent">Parent:</label>
-                    <input type="text" id="form-parent" name="form-parent" placeholder="Add a parent here...">
-                    <ul class="parent-list"></ul>
-                </div>
-
-                <div>
-                    <button type="submit">Save</button>
-                    <button>Cancel</button>
-                </div>
-
-                <script>
-                    
-                    let parents = ["p1", "p2", "arama", "bertr", "test", "cons", "jaja"];
-
-                    let sortedParents = parents.sort();
-                    let input = document.getElementById("form-parent");
-                    input.addEventListener("keyup", (e) => {
-                        document.querySelectorAll(".list-items").forEach((item) => {
-                           item.remove();
-                        });
-
-
-                        for (let i of sortedParents) {
-                            if (i.toLowerCase().startsWith(input.value.toLowerCase()) && (input.value != "")){
-                                let listItem = document.createElement("li");
-                                listItem.classList.add("list-items");
-                                listItem.style.cursor = "pointer";
-                                listItem.setAttribute("onclick", "displayNames('"+i + "')");
-                                let word = i.substring(0, input.value.length);
-                                word += i.substr(input.value.length);
-                                listItem.innerHTML = word;
-                                document.querySelector(".parent-list").appendChild(listItem);
-                            }
-                        }
-                            
-                    });
-
-                    function displayNames(value) {
-                        input.value = value;
-                    }
-                </script>
-
-            </form>
-            
-        </div>
 
     </body>
 

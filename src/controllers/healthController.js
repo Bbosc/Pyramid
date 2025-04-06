@@ -1,4 +1,5 @@
-const Health = require('../models/health');
+const Task = require('../models/health');
+var domain = "health";
 
 function getTaskFromBody(body) {
     return {
@@ -14,8 +15,8 @@ function getTaskFromBody(body) {
 
 exports.display = async (_req, res) => {
     try {
-        const healthTasks = await Health.find();
-        res.render("health", {healthTasks});
+        const healthTasks = await Task.find();
+        res.render(domain, {healthTasks});
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -26,10 +27,10 @@ exports.save = async (req, res) => {
     console.log(req.body);
     const task = getTaskFromBody(req.body);
     console.log(task);
-    Health.findByIdAndUpdate(req.body['form-id'], task)
-    .then(() => {res.redirect('/health');})
+    Task.findByIdAndUpdate(req.body['form-id'], task)
+    .then(() => {res.redirect(domain);})
     .catch(() => {
-        Health(task).save()
+        Task(task).save()
         .then(() => {res.redirect('/health');})
         .catch((err) => {
             console.error("Error creating task: ", err);
@@ -38,3 +39,20 @@ exports.save = async (req, res) => {
     })
 };
 
+exports.deleteTask = async (req, res) => {
+    Task.findByIdAndDelete(req.body['id'])
+    .then(() => {res.redirect(domain);})
+    .catch((err) => {
+        console.error("Error deleting task: ", err);
+        res.status(500).json({message: `Task could not be deleted`});
+    })
+};
+
+exports.completeTask = async (req, res) => {
+    Task.findByIdAndUpdate(req.body['id'], {isCompleted: true})
+    .then(() => {res.redirect(domain);})
+    .catch(() => {
+        console.error("Error creating task: ", err);
+        res.status(500).send("Error creating item");
+    });
+};

@@ -1,14 +1,16 @@
 class Category {
-    constructor(tasks) {
+    constructor(tasks, minTier=2, maxTier=5) {
         this.tasks = tasks;
+        this.minTier = minTier;
+        this.maxTier = maxTier;
         this.fill();
     }
 
     fill() {
         this.tasks.forEach(element => {
             if (!element.isCompleted) {
-                // const task = new Task(element);
-                let container = document.querySelector(".tier");
+                const containerNb = element.tier + 1 - this.minTier;
+                let container = document.querySelector(`div.tier:nth-child(${containerNb})`);
                 const taskDiv = this.createDiv(element);
                 container.appendChild(taskDiv);
             }
@@ -20,7 +22,18 @@ class Category {
         div.className = "task";
         let p = document.createElement("p");
         p.innerText = task.title;
+        p.onclick = function () { toggleTaskSpace(task); };
+        let validateBtn = document.createElement("button");
+        validateBtn.type = "button";
+        validateBtn.innerText = "✔";
+        validateBtn.onclick = function () { completeTask(task); };
+        let deleteBtn = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.innerText = "🗑";
+        deleteBtn.onclick = function () { deleteTask(task); };
         div.appendChild(p);
+        div.appendChild(validateBtn);
+        div.appendChild(deleteBtn);
         return div;
     }
 }
@@ -31,9 +44,9 @@ function deleteTask(task) {
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({taskId: task._id})
+        body: JSON.stringify({id: task._id})
     })
-    .then(res => {window.location.reload();})
+    .then(() => {window.location.reload();})
     .catch(err => {console.error(err);});
 }
 
@@ -43,16 +56,21 @@ function completeTask(task) {
         headers: {
             'Content-type': 'application/json'
         },
-        body: JSON.stringify({taskId: task._id})
+        body: JSON.stringify({id: task._id})
     })
-    .then(res => {window.location.reload();})
+    .then(() => {window.location.reload();})
     .catch(err => {console.error(err);});
 }
 
 
-function toggleTaskSpace() {
-    // toggle the special details div
-    console.log("clicked toggled");
+function toggleTaskSpace(task) {
     document.querySelector(".task-page").classList.toggle("active");
+    if (typeof task !== "undefined") {
+        document.getElementById("form-id").value = task._id;
+        document.getElementById("form-title").value = task.title;
+        document.getElementById("form-description").value = task.description;
+        document.getElementById("form-tier").value = task.tier;
+        document.getElementById("form-deadline").value = task.dateExpired.toString().split('T')[0];
+    }
 }
 

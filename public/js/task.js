@@ -71,6 +71,12 @@ function toggleTaskSpace(task) {
         document.getElementById("form-description").value = task.description;
         document.getElementById("form-tier").value = task.tier;
         document.getElementById("form-deadline").value = task.dateExpired.toString().split('T')[0];
+    } else {
+        document.getElementById("form-id").value = '';
+        document.getElementById("form-title").value = '';
+        document.getElementById("form-description").value = '';
+        document.getElementById("form-tier").value = '';
+        document.getElementById("form-deadline").value = '';
     }
 }
 

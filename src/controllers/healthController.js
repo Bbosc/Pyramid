@@ -28,7 +28,7 @@ exports.save = async (req, res) => {
     const task = getTaskFromBody(req.body);
     console.log(task);
     Task.findByIdAndUpdate(req.body['form-id'], task)
-    .then(() => {res.redirect(domain);})
+    .then(() => {res.redirect('/health');})
     .catch(() => {
         Task(task).save()
         .then(() => {res.redirect('/health');})

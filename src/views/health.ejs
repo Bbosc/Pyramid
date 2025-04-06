@@ -15,25 +15,35 @@
     <body>
 
         <div class="menu-bar">
-            <a href="/">home</a>
-            <a href="/pyramid">pyramid</a>
-            <a href="/chronos">chronos</a>
-            <a href="">health</a>
+            <div class="directions">
+                <a href="/">home</a>
+                <a href="">intelligence</a>
+                <a href="">health</a>
+                <a href="">legal</a>
+            </div>
+            <button type="button" onclick="toggleTaskSpace()">Add a new task</button>
         </div>
 
         <div class="template-layout">
 
-            <div class="calendar-zone">
+            <div class="top-left-zone">
                 <a href="#"><img src="/images/icons/calendar.png" alt="calendar icon"></a>
             </div>
-            <div class="stats-zone">
+            <div class="top-middle-zone">
                 <progress value="16" max="100"></progress>
                 <progress value="92" max="100"></progress>
             </div>
-            <div class="top-middle-zone">
-            </div>
             <div class="top-right-zone">
-                <button type="button" onclick="toggleTaskSpace()">Add a new task</button>
+                <div class="alert">
+                    <button type="button"><img src="/images/icons/cancel.png" alt=""></button>
+                    <h4>Task title</h4>
+                    <span>Due in : 23h59</span>
+                </div>
+                <div class="alert">
+                    <button type="button"><img src="/images/icons/cancel.png" alt=""></button>
+                    <h4>Task title</h4>
+                    <span>Due in : 5m34s</span>
+                </div>
             </div>
             <div class="bottom-zone">
                 <div class="tier"></div>

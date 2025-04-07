@@ -10,19 +10,13 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script type="text/javascript" src="/js/task.js"></script>
         <script type="text/javascript" src="/js/task-page.js"></script>
+        <script type="text/javascript" src="/js/components.js"></script>
+            
     </head>
 
     <body>
 
-        <div class="menu-bar">
-            <div class="directions">
-                <a href="/">home</a>
-                <a href="">intelligence</a>
-                <a href="">health</a>
-                <a href="">legal</a>
-            </div>
-            <button type="button" onclick="toggleTaskSpace()">Add a new task</button>
-        </div>
+        <menu-bar></menu-bar>
 
         <div class="template-layout">
 
@@ -57,7 +51,6 @@
                 const allTasks = <%-JSON.stringify(healthTasks)%>;
                 const category = new Category(allTasks);
             </script>
-
 
             <div class="task-page">
 
@@ -96,6 +89,7 @@
                         <button type="button" onclick="toggleTaskSpace()">Cancel</button>
                     </div>
 
+
                     <script>
                         let sortedTasksTitles = allTasks.map(task => task.title).sort();
 
@@ -111,6 +105,7 @@
                 </form>
                 
             </div>
+                
             
         </div>
 

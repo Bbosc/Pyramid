@@ -1,4 +1,4 @@
-const taskModel = require('../models/health');
+const taskModel = require('../models/task');
 const Intelligence = taskModel.intelligenceModel;
 const Health = taskModel.healthModel;
 const Legal = taskModel.legalModel;

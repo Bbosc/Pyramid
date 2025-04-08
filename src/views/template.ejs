@@ -9,7 +9,6 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css">
         <script type="text/javascript" src="/js/task.js"></script>
         <script type="text/javascript" src="/js/task-page.js"></script>
-        <script type="text/javascript" src="/js/components.js"></script>
         <script>
             const title = <%-JSON.stringify(data.category)%>;
             document.title = title;
@@ -19,7 +18,16 @@
 
     <body>
 
-        <menu-bar></menu-bar>
+        <div class="menu-bar">
+            <div class="directions">
+                <a href="/">home</a>
+                <a href="">intelligence</a>
+                <a href="">health</a>
+                <a href="">legal</a>
+            </div>
+            <button type="button" onclick="toggleTaskSpace()">Add a new task</button>
+        </div>
+
 
         <div class="template-layout">
 

@@ -35,6 +35,14 @@ function getTaskFromBody(body) {
     }
 }
 
+exports.home = async (req, res) => {
+    try {
+        res.render("home");
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+};
+
 exports.display = async (req, res) => {
     let Model = chooseModel(req);
     displayTasks(Model, req, res);

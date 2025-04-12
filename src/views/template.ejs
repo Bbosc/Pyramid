@@ -44,16 +44,6 @@
                 <!-- <progress value="92" max="100"></progress> -->
             </div>
             <div class="top-right-zone">
-                <div class="alert">
-                    <button type="button"><i class="fa-solid fa-xmark"></i></button>
-                    <h4>Task title</h4>
-                    <span>Due in : 23h59</span>
-                </div>
-                <div class="alert">
-                    <button type="button"><i class="fa-solid fa-xmark"></i></button>
-                    <h4>Task title</h4>
-                    <span>Due in : 5m34s</span>
-                </div>
             </div>
             <div class="bottom-zone">
                 <div class="tier"></div>
@@ -66,6 +56,7 @@
             <script>
                 const allTasks = <%-JSON.stringify(data.tasks)%>;
                 const category = new Category(allTasks);
+                const alerts = new Alerts(allTasks);
             </script>
 
             <div class="task-page">
@@ -110,14 +101,6 @@
                     <div class="task-deadline">
                         <label for="form-deadline">Expires on: </label>
                         <input type="date" id="form-deadline" name="form-deadline">
-                        <script>
-                            const today = new Date();
-                            const yyyy = today.getFullYear();
-                            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0
-                            const dd = String(today.getDate()).padStart(2, '0');
-                            const formattedDate = `${yyyy}-${mm}-${dd}`;
-                            document.querySelector("#form-deadline").value = formattedDate;
-                        </script>
                     </div>
                     <div class="task-parent">
                         <label for="form-parent">Parent:</label>

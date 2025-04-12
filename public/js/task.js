@@ -90,8 +90,10 @@ class Alerts {
         let header = document.createElement("h4");
         header.innerText = task.title;
         let span = document.createElement("span");
-        const remainingTime = this.getRemainingTime(task.dateExpired);
-        span.innerText = "Due in : " + remainingTime;
+        setInterval(() => {
+            const remainingTime = this.getRemainingTime(task.dateExpired);
+            span.innerText = "Due in : " + remainingTime;
+        });
         div.appendChild(button);
         div.appendChild(header);
         div.appendChild(span);

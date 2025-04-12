@@ -25,11 +25,12 @@ class Category {
         p.onclick = function () { toggleTaskSpace(task); };
         let validateBtn = document.createElement("button");
         validateBtn.type = "button";
-        validateBtn.innerText = "✔";
+        // validateBtn.innerText = "✔";
+        validateBtn.innerHTML = '<i class="fas fa-check"></i>';
         validateBtn.onclick = function () { completeTask(task); };
         let deleteBtn = document.createElement("button");
         deleteBtn.type = "button";
-        deleteBtn.innerText = "🗑";
+        deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
         deleteBtn.onclick = function () { deleteTask(task); };
         div.appendChild(p);
         div.appendChild(validateBtn);

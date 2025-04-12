@@ -7,11 +7,16 @@
         <link rel="stylesheet" type="text/css" href="/css/template.css">
         <link rel="stylesheet" type="text/css" href="/css/task_page.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <script src="https://kit.fontawesome.com/4d02573ada.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="/js/task.js"></script>
         <script type="text/javascript" src="/js/task-page.js"></script>
         <script>
             const title = <%-JSON.stringify(data.category)%>;
             document.title = title;
+            document.addEventListener('DOMContentLoaded', function () {
+                document.body.id = title;
+                document.body.classList.add(title+'-palette');
+            });
         </script>
             
     </head>
@@ -32,20 +37,20 @@
         <div class="template-layout">
 
             <div class="top-left-zone">
-                <a href="#"><img src="/images/icons/calendar.png" alt="calendar icon"></a>
+                <!-- <a href="#"><img src="/images/icons/calendar.png" alt="calendar icon"></a> -->
             </div>
             <div class="top-middle-zone">
-                <progress value="16" max="100"></progress>
-                <progress value="92" max="100"></progress>
+                <!-- <progress value="16" max="100"></progress> -->
+                <!-- <progress value="92" max="100"></progress> -->
             </div>
             <div class="top-right-zone">
                 <div class="alert">
-                    <button type="button"><img src="/images/icons/cancel.png" alt=""></button>
+                    <button type="button"><i class="fa-solid fa-xmark"></i></button>
                     <h4>Task title</h4>
                     <span>Due in : 23h59</span>
                 </div>
                 <div class="alert">
-                    <button type="button"><img src="/images/icons/cancel.png" alt=""></button>
+                    <button type="button"><i class="fa-solid fa-xmark"></i></button>
                     <h4>Task title</h4>
                     <span>Due in : 5m34s</span>
                 </div>
@@ -79,20 +84,48 @@
                     </div>
                     <div class="task-tier">
                         <label for="form-tier">Tier: </label>
-                        <input type="number" id="form-tier" name="form-tier" value=4 min=0 max=4>
+                        <div class="dropdown-wrapper">
+                            <input type="number" id="form-tier" name="form-tier" value=2 min=0 max=5>
+                            <span class="chevron"> <i class="fas fa-chevron-up fa-xs"></i> </span>
+                            <div class="dropdown-tier">
+                                <div class="dropdown-option" onmousedown="setTier(2)">2</div>
+                                <div class="dropdown-option" onmousedown="setTier(3)">3</div>
+                                <div class="dropdown-option" onmousedown="setTier(4)">4</div>
+                                <div class="dropdown-option" onmousedown="setTier(5)">5</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="task-priority">
                         <label for="form-priority">Priority: </label>
-                        <input type="text" id="form-priority" name="form-priority" value='low'>
+                        <div class="dropdown-wrapper">
+                            <input type="text" id="form-priority" name="form-priority" value='low'>
+                            <span class="chevron"> <i class="fas fa-chevron-up fa-xs"></i> </span>
+                            <div class="dropdown-tier">
+                                <div class="dropdown-option" onmousedown="setPriority('low')">low</div>
+                                <div class="dropdown-option" onmousedown="setPriority('medium')">medium</div>
+                                <div class="dropdown-option" onmousedown="setPriority('high')">high</div>
+                            </div>
+                        </div>
                     </div>
                     <div class="task-deadline">
                         <label for="form-deadline">Expires on: </label>
                         <input type="date" id="form-deadline" name="form-deadline">
+                        <script>
+                            const today = new Date();
+                            const yyyy = today.getFullYear();
+                            const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months start at 0
+                            const dd = String(today.getDate()).padStart(2, '0');
+                            const formattedDate = `${yyyy}-${mm}-${dd}`;
+                            document.querySelector("#form-deadline").value = formattedDate;
+                        </script>
                     </div>
                     <div class="task-parent">
                         <label for="form-parent">Parent:</label>
-                        <input type="text" id="form-parent" name="form-parent" placeholder="Add a parent here...">
-                        <ul class="parent-list"></ul>
+                        <div class="dropdown-wrapper">
+                            <input type="text" id="form-parent" name="form-parent" placeholder="Add a parent here...">
+                            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                            <ul class="parent-list"></ul>
+                        </div>
                     </div>
 
                     <div>
@@ -111,6 +144,26 @@
                         function displayNames(value) {
                             input.value = value;
                         }
+                        const tier_input = document.querySelector('#form-tier');
+                        const priority_input = document.querySelector('#form-priority');
+                        const icon = document.querySelector('.chevron i');
+
+                        tier_input.addEventListener('focus', () => {
+                            const icon = document.querySelector('.task-tier > .dropdown-wrapper > .chevron i');
+                            icon.classList.add('rotate-down');
+                        });
+                        tier_input.addEventListener('blur', () => {
+                            const icon = document.querySelector('.task-tier > .dropdown-wrapper > .chevron i');
+                            icon.classList.remove('rotate-down');
+                        });
+                        priority_input .addEventListener('focus', () => {
+                            const icon = document.querySelector('.task-priority > .dropdown-wrapper > .chevron i');
+                            icon.classList.add('rotate-down');
+                        });
+                        priority_input.addEventListener('blur', () => {
+                            const icon = document.querySelector('.task-priority > .dropdown-wrapper > .chevron i');
+                            icon.classList.remove('rotate-down');
+                        });
                     </script>
 
                 </form>

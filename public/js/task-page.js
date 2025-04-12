@@ -18,4 +18,11 @@ function autoSuggest(input, sortedTasksTitles) {
     }
 }
 
+function setTier(value) {
+    document.getElementById("form-tier").value = value;
+}
+
+function setPriority(value) {
+    document.getElementById("form-priority").value = value;
+}
 

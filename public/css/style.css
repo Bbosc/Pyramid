@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 :root {
     --corner-radius: 10px;
@@ -40,6 +41,21 @@ body::before {
 
 #chronos::before {
     background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
+}
+
+#health::before {
+    background-image: url('../images/wallpapers/health.webp');
+    background-size: cover;
+}
+
+#intelligence::before {
+    background-image: url('../images/wallpapers/intelligence.jpg');
+    background-size: cover;
+}
+
+#legal::before {
+    background-image: url('../images/wallpapers/legal.jpeg');
+    background-size: cover;
 }
 /* HOME BUTTON */
 

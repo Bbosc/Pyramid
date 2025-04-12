@@ -7,6 +7,9 @@ class Category {
     }
 
     fill() {
+        this.tasks.sort((a, b) => {
+            return this.sort(a,b);
+        });
         this.tasks.forEach(element => {
             if (!element.isCompleted) {
                 const containerNb = element.tier + 1 - this.minTier;
@@ -17,6 +20,24 @@ class Category {
         });
     }
 
+    sort(taskA, taskB) {
+        const byDate = (dateA, dateB) => {
+            if (dateA == dateB) {
+                return this.sortByPriority(taskA, taskB);
+            } else {
+                return dateA > dateB;
+            }
+        }
+        let dateA = new Date(taskA.dateExpired).getTime();
+        let dateB = new Date(taskB.dateExpired).getTime();
+        return byDate(dateA, dateB) ;
+    }
+    sortByPriority(taskA, taskB) {
+        const priorities = {"low": 1, "medium": 2, "high": 3};
+        return priorities[taskA.priority] < priorities[taskB.priority];
+    }
+
+
     createDiv(task) {
         let div = document.createElement("div");
         div.className = "task";
@@ -25,7 +46,6 @@ class Category {
         p.onclick = function () { toggleTaskSpace(task); };
         let validateBtn = document.createElement("button");
         validateBtn.type = "button";
-        // validateBtn.innerText = "✔";
         validateBtn.innerHTML = '<i class="fas fa-check"></i>';
         validateBtn.onclick = function () { completeTask(task); };
         let deleteBtn = document.createElement("button");

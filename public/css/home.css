@@ -1,74 +1,95 @@
+@font-face {
+    font-family: 'CallOf';
+    src: url('/fonts/CallOfOpsDuty.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body {
     height: 100%;
     margin: 0;
     padding: 0;
-    background-color: black
 }
 
 
 .menu-container {
+    position: relative;
     height: 100%;
     width: 100%;
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: flex-start;
-    transform: skewX(-5deg);
+    flex-direction: row;
+    justify-content: center;
 }
 
 .panel {
     position: relative;
     height: 100%;
-    width: 25%;
-}
-
-.panel:hover {
     width: 100%;
-}
-
-
-.panel-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
     color: white;
-    overflow:hidden;
-    transition: width 0.5s ease;
-    a {
-        display: block;
+    transition: transform 0.3s ease;
+
+    .headers {
+        position: absolute;
+        bottom: 0;
+        right: 0;
         width: 100%;
-        height: 100%;
-        transition: width 0.5s ease;
+        font-family: 'CallOf', sans-serif;
+        z-index: 2;
+
+        h1 {
+            position: relative;
+            padding: 0;
+            margin: 0;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-align: end;
+        }
+        p {
+            padding: 0;
+            margin: 0;
+            font-size: 15rem;
+            text-align: end;
+        }
     }
+
+}
+.panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    z-index: 1;
+    transition: height 0.3s ease;
 }
 
-#pyramid {
-    background-image: url("../images/wallpapers/pyramid.png");
-    background-size: cover;
-    background-position: 50% 50%;
-    opacity: 0.7;
-    transition: opacity 0.5s ease, width 0.5s ease;
+.panel:hover:before {
+    height: 100%;
 }
-
-#pyramid:hover {
-    opacity: 1;
-    width: 60%;
-}
-
-#chronos {
-    background-image: url("../images/wallpapers/hourglass.jpg");
-    background-size: cover;
-    background-position: 50% 50%;
-    opacity: 0.7;
-    transition: opacity 0.5s ease, width 0.5s ease;
-}
-
-#chronos:hover {
-    opacity: 1;
-    width: 60%;
+.panel:hover .headers {
+    filter: invert(100%);
 }
 
 
-
-
+#intelligence-panel {
+    background-image: url('/images/wallpapers/intelligence.jpg');
+    background-size: auto 100%;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+#health-panel {
+    background-image: url('/images/wallpapers/health.webp');
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+#legal-panel {
+    background-image: url('/images/wallpapers/legal.jpeg');
+    background-size: auto 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}

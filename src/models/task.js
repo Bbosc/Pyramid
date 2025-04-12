@@ -22,7 +22,8 @@ const taskSchema = new mongoose.Schema({
     dateCreated: {type: Date, default: Date.now, required: false},
     dateExpired: {type: Date, required: false},
     dateCompleted: {type: Date, required: false},
-    documents: [{type: String, required: false}]
+    documents: [{type: String, required: false}],
+    isCompleted: {type: Boolean, require: false}
 });
 
 exports.intelligenceModel = intelligenceConnection.model("Intelligence", taskSchema);

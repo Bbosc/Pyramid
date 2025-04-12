@@ -61,7 +61,10 @@ class Category {
 
 class Alerts {
     constructor(tasks) {
-        tasks.sort((a, b) => {
+        let alertTasks = tasks.filter((t) => {
+            return !(t.isCompleted)
+        });
+        alertTasks.sort((a, b) => {
             const byDate = (dateA, dateB) => {
                 return dateA > dateB;
             }
@@ -69,12 +72,13 @@ class Alerts {
             let dateB = new Date(b.dateExpired).getTime();
             return byDate(dateA, dateB) ;
         });
-        this.fill(tasks.slice(0, 3));
+        this.fill(alertTasks.slice(0, 3));
     }
 
     fill(tasks) {
         let container = document.querySelector(".top-right-zone");
         tasks.forEach(element => {
+            console.log(element.isCompleted);
             container.appendChild(this.createDiv(element));
             
         });

@@ -62,7 +62,8 @@ class Category {
 class Alerts {
     constructor(tasks) {
         let alertTasks = tasks.filter((t) => {
-            return !(t.isCompleted)
+            const [hours, _m, _s] = this.getRemainingTime(t.dateExpired);
+            return (!(t.isCompleted) && (hours < 48));
         });
         alertTasks.sort((a, b) => {
             const byDate = (dateA, dateB) => {
@@ -95,7 +96,8 @@ class Alerts {
         header.innerText = task.title;
         let span = document.createElement("span");
         setInterval(() => {
-            const remainingTime = this.getRemainingTime(task.dateExpired);
+            const [hours, minutes, seconds] = this.getRemainingTime(task.dateExpired);
+            const remainingTime = `${hours}:${minutes}:${seconds}`;
             span.innerText = "Due in : " + remainingTime;
         });
         div.appendChild(button);
@@ -111,7 +113,7 @@ class Alerts {
         let diffInSeconds = Math.floor((future - now) / 1000);
 
         if (diffInSeconds < 0) {
-        return "00:00:00"; // If the target date is in the past
+        return ['00','00','00']; 
         }
 
         const hours = String(Math.floor(diffInSeconds / 3600)).padStart(2, '0');
@@ -119,7 +121,7 @@ class Alerts {
         const minutes = String(Math.floor(diffInSeconds / 60)).padStart(2, '0');
         const seconds = String(diffInSeconds % 60).padStart(2, '0');
 
-        return `${hours}:${minutes}:${seconds}`;
+        return [hours, minutes, seconds];
     }
 }
 

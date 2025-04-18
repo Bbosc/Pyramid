@@ -118,7 +118,7 @@
 
 
                     <script>
-                        let sortedTasksTitles = allTasks.map(task => task.title).sort();
+                    let sortedTasksTitles = allTasks.filter(task => !task.isCompleted).map(task => task.title).sort();
 
                         let input = document.getElementById("form-parent");
                         input.addEventListener("keyup", () => {

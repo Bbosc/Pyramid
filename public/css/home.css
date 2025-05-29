@@ -75,6 +75,12 @@ html, body {
 }
 
 
+#bucket-panel {
+    background-image: url('/images/wallpapers/glacier.jpeg');
+    background-size: auto 100%;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
 #intelligence-panel {
     background-image: url('/images/wallpapers/intelligence.jpg');
     background-size: auto 100%;

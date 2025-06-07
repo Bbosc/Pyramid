@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="/images/icons/pyramid.ico">
+        <link rel="stylesheet" type="text/css" href="/css/bucket.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <script src="https://kit.fontawesome.com/4d02573ada.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="/js/bucket.js"></script>
+        <script>
+            const title = <%-JSON.stringify(data.category)%>;
+            document.title = title;
+            document.addEventListener('DOMContentLoaded', function () {
+                document.body.id = title;
+                document.body.classList.add(title+'-palette');
+            });
+        </script>
+    </head>
+
+    <body>
+        <div class="tasks-container">
+        </div>
+
+        <script>
+            const tasks = <%-JSON.stringify(data.tasks)%>;
+            const bucketList = new Bucket(tasks);
+
+            window.addEventListener("keyup", function (event) {
+                if (event.key === "Enter") {
+                    addNewTask();
+                }
+            })
+        </script>
+    </body>
+
+</html>
+

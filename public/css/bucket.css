@@ -1,0 +1,67 @@
+
+.glacier-palette {
+    --color1: #c38c64;
+    --bg-color1: #c38c6480;
+    --color2: #5a392d;
+    --color3: #707f97;
+    --font-color: white;
+}
+
+.tasks-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid white;
+    border-radius: 15px;
+    height: 80%;
+    width: 30%;
+    overflow: hidden;
+}
+
+.task {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
+    backdrop-filter: invert(70%);
+    transition: transform .2s;
+    color: var(--font-color);
+    p {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 70%;
+        margin-left: 15px;
+    }
+    button {
+        border: none;
+        background-color: transparent;
+        color: var(--font-color);
+    }
+    button:hover {
+        cursor: pointer;
+        transition: transform .2s;
+    }
+}
+.task:hover {
+    transform: scale(1.05);
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#add-btn {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    font-size: 3rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+

@@ -1,4 +1,5 @@
 const taskModel = require('../models/task');
+const Bucket = taskModel.bucketModel;
 const Intelligence = taskModel.intelligenceModel;
 const Health = taskModel.healthModel;
 const Legal = taskModel.legalModel;
@@ -6,7 +7,11 @@ const Legal = taskModel.legalModel;
 async function displayTasks(Model, req, res) {
     try {
         const tasks = await Model.find();
-        res.render("template", {data: {category: req.params['category'], tasks: tasks}});
+        if (Model === Bucket) {
+            res.render("bucket", {data: {category: req.params['category'], tasks: tasks}});
+        } else {
+            res.render("template", {data: {category: req.params['category'], tasks: tasks}});
+        }
     } catch (error) {
         res.status(500).json({error: error.message});
     }
@@ -14,6 +19,8 @@ async function displayTasks(Model, req, res) {
 
 function chooseModel(req) {
     switch (req.params['category']) {
+        case 'bucket':
+            return Bucket;
         case 'health':
             return Health;
         case 'intelligence':
@@ -50,19 +57,25 @@ exports.display = async (req, res) => {
 
 
 exports.save = async (req, res) => {
-    const task = getTaskFromBody(req.body);
-    const category = req.params['category'];
     let Model = chooseModel(req);
-    Model.findByIdAndUpdate(req.body['form-id'], task)
-    .then(() => {res.redirect('/' + category);})
-    .catch(() => {
+    if (Model === Bucket) {
+        const task = req.body;
         Model(task).save()
+        .then(() => { res.redirect('/bucket'); });
+    } else {
+        const task = getTaskFromBody(req.body);
+        const category = req.params['category'];
+        Model.findByIdAndUpdate(req.body['form-id'], task)
         .then(() => {res.redirect('/' + category);})
-        .catch((err) => {
-            console.error("Error creating task: ", err);
-            res.status(500).send("Error creating item");
+        .catch(() => {
+            Model(task).save()
+            .then(() => {res.redirect('/' + category);})
+            .catch((err) => {
+                console.error("Error creating task: ", err);
+                res.status(500).send("Error creating item");
+            })
         })
-    })
+    }
 };
 
 exports.deleteTask = async (req, res) => {

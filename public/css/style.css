@@ -43,6 +43,11 @@ body::before {
     background: url('../images/wallpapers/hourglass.jpg') no-repeat 20% center fixed;
 }
 
+#bucket::before {
+    background-image: url('../images/wallpapers/glacier.jpeg');
+    background-size: cover;
+}
+
 #health::before {
     background-image: url('../images/wallpapers/health.webp');
     background-size: cover;

@@ -4,8 +4,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="/images/icons/pyramid.ico">
-        <link rel="stylesheet" type="text/css" href="/css/bucket.css">
         <link rel="stylesheet" type="text/css" href="/css/style.css">
+        <link rel="stylesheet" type="text/css" href="/css/bucket.css">
+        <link rel="stylesheet" type="text/css" href="/css/menu.css">
         <script src="https://kit.fontawesome.com/4d02573ada.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="/js/bucket.js"></script>
         <script>
@@ -13,12 +14,22 @@
             document.title = title;
             document.addEventListener('DOMContentLoaded', function () {
                 document.body.id = title;
-                document.body.classList.add(title+'-palette');
             });
         </script>
     </head>
 
-    <body>
+    <body class="glacier-palette">
+
+        <div class="menu-bar">
+            <div class="directions">
+                <a href="/">home</a>
+                <a href="/intelligence">intelligence</a>
+                <a href="/health">health</a>
+                <a href="/legal">legal</a>
+                <a href="/bucket">bucket</a>
+            </div>
+        </div>
+
         <div class="tasks-container">
         </div>
 

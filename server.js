@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const templateRoutes = require("./src/routes/templateRoutes");
 
 const app = express();
-const port = 5353;
+const port = 8080;
 
 app.set("views", "./src/views")
 app.set("view engine", "ejs");

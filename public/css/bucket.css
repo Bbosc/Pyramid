@@ -33,7 +33,7 @@
     backdrop-filter: invert(70%);
     transition: transform .2s;
     color: var(--font-color);
-    p {
+    input {
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
